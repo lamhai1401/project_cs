@@ -57,9 +57,11 @@ app.use(handler);
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
 // app router connection
-const user_router = require('./routes/users_router');
+const users_router = require('./routes/users_router');
+const roles_router = require('./routes/roles_router');
 app.use('/api/v1', [
-    user_router,
+    users_router,
+    roles_router,
 ]);
 
 function haltOnTimedout (req, res, next) {

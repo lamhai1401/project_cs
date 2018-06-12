@@ -1,13 +1,16 @@
 const mongoose = require('mongoose');
 
 const Roles_Schema = new mongoose.Schema({
-  name: {
+  role_name: { // ví dụ Admin, Excutive, Readonly
     type: String
   },
   roles_detail: [{
-    name:   {type: String},
+    roles_detail_name:   {type: String}, // ví dụ xóa user, thêm user
     code:   {type: String},
-    status: {type: String},
+    status: {
+      type: String,
+      default: 1
+    },
     created_at: {
       type: String,
       default: Date.now()
