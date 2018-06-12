@@ -5,5 +5,5 @@ const logins  = require('./models/logins');
 module.exports = {
     users,
     roles,
-    logins
+    logins,
 };

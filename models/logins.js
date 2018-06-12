@@ -1,15 +1,13 @@
 const mongoose = require('mongoose');
 
 const Login_Schema = new mongoose.Schema({
-  current_login: {
-    type: String
-  },
   user_id: {
     type: mongoose.Schema.ObjectId,
     ref:   'accounts'
   },
-  last_login: {
-    type: String
+  login_at: {
+    type: String,
+    default: Date.now()
   },
   status: {
     type: String,

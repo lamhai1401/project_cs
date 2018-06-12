@@ -25,6 +25,9 @@ const User_Schema = new mongoose.Schema({
       type: String
     },
   },
+  token:{
+    type: String
+  },
   status: {
     type: String,
     default: 1

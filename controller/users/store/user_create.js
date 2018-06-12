@@ -1,19 +1,9 @@
 const users       = require('../../../models').users;
 const string      = require('../../../methods').string;
 const hash        = require('../../../methods').hash;
+const jwt         = require('../../../methods').jwt;
 const check_role  = require('../../check_role');
 const user_create_code = require('../../roles/role_code').user_create;
-
-//const mongoose = require('mongoose');
-// mongoose.connect('mongodb://localhost/test')
-//     .then(connection => {
-//         console.log('     [Mongodb] Connected to MongoDB');
-//         console.log('     ======================== \n');
-//     })
-//     .catch(error => {
-//         console.log('     [Mongodb] ' + error.message);
-//     });
-// mongoose.Promise = global.Promise;
 
 async function create(object, user_role_id, user_role_detail_code) {
   return new Promise( async(resolve, reject) => {
