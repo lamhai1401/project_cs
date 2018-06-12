@@ -50,18 +50,17 @@ app.use(timeout('10s'));
 app.use(haltOnTimedout);
 app.use(lusca.xframe('SAMEORIGIN'));
 app.use(lusca.xssProtection(true));
+app.use(errorhandler());
+app.use(handler);
 
 /* Static resources */
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
 // app router connection
-// app.use('/api/v1', [
-//     // do something here
-// ]);
-
-/* Middleware catch error */
-app.use(errorhandler());
-app.use(handler);
+const user_router = require('./routes/users_router');
+app.use('/api/v1', [
+    user_router,
+]);
 
 function haltOnTimedout (req, res, next) {
     if (!req.timedout) next()
