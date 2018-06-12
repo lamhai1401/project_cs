@@ -1,6 +1,7 @@
 const roles = require('../models').roles;
 const string = require('../methods').string;
 
+// lấy user id từ token sau đó lọc ra role id, check role id xem có quyền đó ko, sau đó check xem activity code có đúng ko, tránh trường hợp query = postman
 async function check(user_role_id, user_role_detail_code, role_code) {
   return new Promise( async(resolve, reject) => {
     //format
@@ -14,9 +15,8 @@ async function check(user_role_id, user_role_detail_code, role_code) {
     const role_detail = role.roles_detail.find( role => role.code === user_role_detail_code );
     if(!role_detail || role_detail.status == 0) {
       return resolve(`You dont have permission or role to ${user_role_detail_code} this`);
-    }
-    // how to check right code ????
-    console.log(role_code);
+    };
+    
     if(role_detail.code != role_code) {
       return resolve(`Wrong role code`);
     }
