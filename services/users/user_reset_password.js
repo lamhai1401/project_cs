@@ -1,13 +1,11 @@
-const users       = require('../../../models').users;
-const jwt         = require('../../../methods').jwt;
-const hash        = require('../../../methods').hash;
-const check_role  = require('../../check_role');
-const user_reset_password_code = require('../../roles/role_code').reset_password;
+const users       = require('../../models/users');
+const hash        = require('../../util/hash').hash;
+const check_role  = require('../roles/check_role');
 
-async function reset_password(object, user_role_id, user_role_detail_code) {
+async function reset_password(object, manager_role_id, manager_role_detail_code) {
   return new Promise( async(resolve, reject) => {
     // check permission
-    const isRightRole = await check_role(user_role_id, user_role_detail_code, user_reset_password_code);
+    const isRightRole = await check_role(manager_role_id, manager_role_detail_code);
     if( isRightRole != true ) {
       return reject(isRightRole);
     };
@@ -19,6 +17,7 @@ async function reset_password(object, user_role_id, user_role_detail_code) {
     // hash new password
     const hashPassword =  await hash(object.password);
     user.password = hashPassword;
+    user.token = "";
     user.save();
     return user;
   });

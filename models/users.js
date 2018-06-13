@@ -24,6 +24,9 @@ const User_Schema = new mongoose.Schema({
     address: {
       type: String
     },
+    phone_number: {
+      type: String
+    },
   },
   token:{
     type: String

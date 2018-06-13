@@ -4,6 +4,9 @@ const Roles_Schema = new mongoose.Schema({
   role_name: { // ví dụ Admin, Excutive, Readonly
     type: String
   },
+  type: { // ví dụ Admin, Excutive, Readonly
+    type: String
+  },
   roles_detail: [{
     roles_detail_name:   {type: String}, // ví dụ xóa user, thêm user
     code:   {type: String},

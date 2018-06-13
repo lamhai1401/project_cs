@@ -1,7 +1,7 @@
-const users   = require('../../../models').users;
-const logins   = require('../../../models').logins;
-const compare = require('../../../methods').compare;
-const jwt     = require('../../../methods').jwt;
+const users   = require('../../models/users')
+const logins  = require('../../models/logins');
+const compare = require('../../util/hash').compare;
+const jwt     = require('../../util/jwt');
 
 // const mongoose = require('mongoose');
 // mongoose.connect('mongodb://localhost/test')
@@ -43,7 +43,3 @@ async function login(object) {
 }
 
 module.exports = login;
-
-// login({email: 'lamthanhhai141@gmail.com', password: '123456'})
-// .then(data => console.log(data))
-// .catch(err => console.log(err));

@@ -1,6 +1,4 @@
-const create = require('../store/user_create');
-const express = require('express');
-const router = express.Router();
+const create = require('../../services/users/user_create');
 
 const createHandler = async (req, res, next) => {
   try {
@@ -16,9 +14,9 @@ const createHandler = async (req, res, next) => {
         address: req.body.address,
       },
     };
-    const user_role_id             = req.body.user_role_id;
-    const user_role_detail_code = req.body.user_role_detail_code;
-    const user = await create(object, user_role_id, user_role_detail_code);
+    const manager_role_id              = req.body.manager_role_id;
+    const manager_role_detail_code     = req.body.manager_role_detail_code;
+    const user = await create(object, manager_role_id, manager_role_detail_code);
     res.responseSuccess({success: true, data: user});
     next();
   }
@@ -30,6 +28,4 @@ const createHandler = async (req, res, next) => {
   }
 };
 
-router.post("/create", createHandler);
-
-module.exports = router;
+module.exports = createHandler;

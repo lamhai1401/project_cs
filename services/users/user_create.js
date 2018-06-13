@@ -1,14 +1,12 @@
-const users       = require('../../../models').users;
-const string      = require('../../../methods').string;
-const hash        = require('../../../methods').hash;
-const jwt         = require('../../../methods').jwt;
-const check_role  = require('../../check_role');
-const user_create_code = require('../../roles/role_code').user_create;
+const users       = require('../../models/users');
+const string      = require('../../util/string');
+const hash        = require('../../util/hash').hash;
+const check_role  = require('../roles/check_role');
 
-async function create(object, user_role_id, user_role_detail_code) {
+async function create(object, manager_role_id, manager_role_detail_code) {
   return new Promise( async(resolve, reject) => {
-
-    const isRightRole = await check_role(user_role_id, user_role_detail_code, user_create_code);
+    // check role
+    const isRightRole = await check_role(manager_role_id, manager_role_detail_code);
     if( isRightRole != true ) {
       return reject(isRightRole);
     }

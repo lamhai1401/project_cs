@@ -10,7 +10,8 @@ const errorhandler  = require('errorhandler');
 const mongoose      = require('mongoose');
 const lusca         = require('lusca');
 const mongo         = require('config').MONGODB.URI;
-const handler       = require('./foundation/AppResponse');
+const handler       = require('./util/AppResponse');
+const router        = require('./routes');
 /**
  * Main app.
  */
@@ -57,12 +58,7 @@ app.use(handler);
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
 // app router connection
-const users_router = require('./routes/users_router');
-const roles_router = require('./routes/roles_router');
-app.use('/api/v1', [
-    users_router,
-    roles_router,
-]);
+app.use('/api/v1', router);
 
 function haltOnTimedout (req, res, next) {
     if (!req.timedout) next()
