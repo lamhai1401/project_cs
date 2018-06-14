@@ -3,6 +3,8 @@ const user_controller = require('../controller/users');
 
 router.post('/create', user_controller.create);
 router.post('/login', user_controller.login);
+router.post('/find', user_controller.find);
+router.post('/list', user_controller.list);
 router.patch('/password/change', user_controller.change);
 router.patch('/password/reset', user_controller.reset);
 router.patch('/disable', user_controller.disable);
