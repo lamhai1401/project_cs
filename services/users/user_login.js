@@ -3,18 +3,7 @@ const logins  = require('../../models/logins');
 const compare = require('../../util/hash').compare;
 const jwt     = require('../../util/jwt');
 
-// const mongoose = require('mongoose');
-// mongoose.connect('mongodb://localhost/test')
-//     .then(connection => {
-//         console.log('     [Mongodb] Connected to MongoDB');
-//         console.log('     ======================== \n');
-//     })
-//     .catch(error => {
-//         console.log('     [Mongodb] ' + error.message);
-//     });
-// mongoose.Promise = global.Promise;
-
-async function login(object) {
+function login(object) {
   return new Promise(async(resolve, reject) => {
     const user = await users.findOne({email: object.email});
     if(!user) {
@@ -27,10 +16,15 @@ async function login(object) {
     if(user.status == 0) {
       return reject('Your account was disabled');
     }
-
+    // save role of user to object
+    object.role_type = user.role_type;
+    
     // create login
     logins.create({
-      user_id: user._id
+      user_id: user._id,
+      role_type: user.role_type,
+      name: user.info.name,
+      display_name: user.display_name
     });
 
     // update token

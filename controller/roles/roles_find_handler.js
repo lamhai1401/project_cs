@@ -1,6 +1,6 @@
-const create = require('../../services/roles/roles_create');
+const find = require('../../services/roles/roles_find');
 
-const createHandler = async (req, res, next) => {
+const find_roles_handler = async (req, res, next) => {
   try {
     if(!req.body) return res.responseError("INVALID_INPUT_PARAM", "Input cannot be empty !!!");
     
@@ -11,20 +11,19 @@ const createHandler = async (req, res, next) => {
     };
 
     const object = {
-      role_name: req.body.role_name,
       type: req.body.type,
     };
     const manager_role_detail_code    = req.body.manager_role_detail_code;
-    const user = await create(object, token, manager_role_detail_code);
+    const user = await find(object, token, manager_role_detail_code);
     res.responseSuccess({success: true, data: user});
     next();
   }
   catch(err) {
     if(err.message) {
-      return res.responseError("ROLES_CREATED_FAILED", err.message);
+      return res.responseError("ROLES_FIND_FAILED", err.message);
     }
-    return res.responseError("ROLES_CREATED_FAILED", err);
+    return res.responseError("ROLES_FIND_FAILED", err);
   }
 };
 
-module.exports = createHandler;
+module.exports = find_roles_handler;

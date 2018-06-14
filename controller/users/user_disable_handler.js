@@ -1,6 +1,6 @@
-const change_password = require('../../services/users/user_change_password');
+const disable_user = require('../../services/users/user_disable');
 
-const change_password_handler = async (req, res, next) => {
+const disable_user_handler = async (req, res, next) => {
   try {
     if(!req.body) return res.responseError("INVALID_INPUT_PARAM", "Input cannot be empty !!!");
     
@@ -9,19 +9,21 @@ const change_password_handler = async (req, res, next) => {
     if (!token) {
       return res.responseFailAuth("UNAUTHORIZED_ERROR", "You need to log in to do it");
     };
+
     const object = {
-      password: req.body.password,
+      email: req.body.email,
     };
-    const user   = await change_password(object, token);
+    const manager_role_detail_code     = req.body.manager_role_detail_code;
+    const user = await disable_user(object, token, manager_role_detail_code);
     res.responseSuccess({success: true, data: user});
     next();
   }
   catch(err) {
     if(err.message) {
-      return res.responseError("CHANGE_PASSWORD_FAILED", err.message);
+      return res.responseError("DISABLE_FAILED", err.message);
     }
-    return res.responseError("CHANGE_PASSWORD_FAILED", err);
+    return res.responseError("DISABLE", err);
   }
 };
 
-module.exports = change_password_handler;
+module.exports = disable_user_handler;

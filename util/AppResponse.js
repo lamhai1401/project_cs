@@ -8,14 +8,14 @@ const handler = (req, res, next) => {
         };
         res.status(400).json(err);
     };
-    res.responseFailAuth = (statuscode, code, error) => {
+    res.responseFailAuth = (code, error) => {
         const err = {
-            statusCode: statusCode,
+            statusCode: 401,
             success: false,
             error: error,
             code: code
         };
-        res.status(statusCode).json(err);
+        res.status(401).json(err);
     };
     res.responseSuccess = (data) => res.status(200).json(data);
     next();

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const roles_code_schema = new mongoose.Schema({
-  name: {
+  roles_detail_name: {
     type: String
   },
   code: {

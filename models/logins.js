@@ -5,6 +5,15 @@ const Login_Schema = new mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref:   'accounts'
   },
+  role_type: {
+    type: String
+  },
+  name: {
+    type: String
+  },
+  display_name: {
+    type: String
+  },
   login_at: {
     type: String,
     default: Date.now()

@@ -1,10 +1,9 @@
 const users       = require('../../models/users');
-const hash        = require('../../util/hash').hash;
-const jwt         = require('../../util/jwt');
 const check_role  = require('../roles/check_role');
+const jwt         = require('../../util/jwt');
 
-function reset_password(object, token, manager_role_detail_code) {
-  return new Promise( async(resolve, reject) => {
+function enable_user(object, token, manager_role_detail_code) {
+  return new Promise ( async(resolve, reject) => {
 
     // get manager role id
     token = await jwt.verifyToken(token);
@@ -18,19 +17,20 @@ function reset_password(object, token, manager_role_detail_code) {
     if( isRightRole != true ) {
       return reject(isRightRole);
     };
+    
     // find user
     const user = await users.findOne({email: object.email});
     if(!user) {
       return reject('Invalid user email');
     };
-    // hash new password
-    const hashPassword  = await hash(object.new_password);
-    user.password       = hashPassword;
-    user.token          = await jwt.createToken({email: object.email, password: object.new_password, role_type: user.role_type});
+
+    // settting status of user = 1;
+    user.status = 1;
+    user.updated_at = Date.now();
     user.save();
 
     resolve(user);
   });
-};
+}
 
-module.exports = reset_password;
+module.exports = enable_user;
