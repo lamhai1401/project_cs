@@ -4,5 +4,8 @@
   },
   "MONGODB": {
     "URI": "MONGODB_URL"
+  },
+  "HOST": {
+    "INDEX": "INDEX_URL"
   }
 }

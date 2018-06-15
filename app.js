@@ -10,6 +10,7 @@ const errorhandler  = require('errorhandler');
 const mongoose      = require('mongoose');
 const lusca         = require('lusca');
 const mongo         = require('config').MONGODB.URI;
+const index_url     = require('config').HOST.INDEX;
 const handler       = require('./util/AppResponse');
 const router        = require('./routes');
 /**
@@ -58,7 +59,7 @@ app.use(handler);
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
 // app router connection
-app.use('/api/v1', router);
+app.use(index_url, router);
 
 function haltOnTimedout (req, res, next) {
     if (!req.timedout) next()

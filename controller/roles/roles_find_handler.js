@@ -3,7 +3,6 @@ const find = require('../../services/roles/roles_find');
 const find_roles_handler = async (req, res, next) => {
   try {
     if(!req.body) return res.responseError("INVALID_INPUT_PARAM", "Input cannot be empty !!!");
-    
     // check token
     const token = req.body.token || req.query.token || req.headers['x-access-token'];
     if (!token) {

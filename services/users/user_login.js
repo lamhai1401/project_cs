@@ -15,9 +15,7 @@ function login(object) {
     };
     if(user.status == 0) {
       return reject('Your account was disabled');
-    }
-    // save role of user to object
-    object.role_type = user.role_type;
+    };
     
     // create login
     logins.create({
@@ -26,7 +24,7 @@ function login(object) {
       name: user.info.name,
       display_name: user.display_name
     });
-
+    console.log(object);
     // update token
     user.token = await jwt.createToken(object);
     user.updated_at = Date.now();

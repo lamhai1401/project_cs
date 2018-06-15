@@ -1,6 +1,4 @@
 const login = require('../../services/users/user_login');
-const express = require('express');
-const router = express.Router();
 
 const loginHandler = async (req, res, next) => {
   try {
