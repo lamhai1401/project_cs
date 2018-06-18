@@ -1,4 +1,4 @@
-const jwt   = require('../util/jwt');
+const jwt         = require('../util/jwt');
 const users       = require('../models/users');
 const roles       = require('../models/roles');
 const user_roles  = require('../models/user_role');
@@ -26,10 +26,10 @@ const dispatcher = async (req, res, next) => {
     return res.responseFailAuth("UNAUTHORIZED_ERROR", "You need to log in to do it");
   };
 
-  // get user info
+  // get user info and check it was disabled
   const user = await users.findOne({email: info.email});
-  if(!user) {
-    return res.responseFailAuth("UNAUTHORIZED_ERROR", 'Invalid user');
+  if(!user || user.status == 0) {
+    return res.responseFailAuth("UNAUTHORIZED_ERROR", 'Invalid/Disabled user');
   }
 
   // get user roles
@@ -62,6 +62,7 @@ const dispatcher = async (req, res, next) => {
   }
   
   // pass if user has this role url
+  req.body.manager = info;
   next();
 };
 module.exports = dispatcher;

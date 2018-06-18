@@ -1,17 +1,10 @@
 const users = require('../../models/users');
 const hash  = require('../../util/hash').hash;
-const jwt   = require('../../util/jwt');
 
-function change_password(object, token) {
-  return new Promise(async(resolve, reject) => {
+function change_password(object, token, manager) {
+  return new Promise(async (resolve, reject) => {
 
-    // get info from token
-    const info = await jwt.verifyToken(token);
-
-    if(info == 'jwt expired') {
-      return reject('Log in again');
-    };
-    const email = info.email;
+    const email = manager.email;
 
     const user = await users.findOne({email: email});
     if(!user) {

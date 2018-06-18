@@ -9,7 +9,6 @@ function create(object) {
 
     // format
     object.password     = await hash(object.password);
-    object.display_name = string.capitalize(object.display_name);
     object.name         = string.capitalize(object.name);
     object.role_type    = string.createcode(object.role_type);
 
@@ -34,7 +33,6 @@ function create(object) {
 
     resolve({
       email: new_user.email,
-      display_name: new_user.display_name,
       name: new_user.name,
       role: role.name
     });

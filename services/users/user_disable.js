@@ -28,6 +28,6 @@ function disable_user(object) {
 
     resolve(user);
   });
-}
+};
 
 module.exports = disable_user;

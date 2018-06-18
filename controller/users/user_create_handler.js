@@ -9,7 +9,6 @@ const createHandler = async (req, res, next) => {
       email: req.body.email,
       password: req.body.password,
       name: req.body.name,
-      display_name: req.body.display_name,
       role_type: req.body.role_type
     };
     const user = await create(object);

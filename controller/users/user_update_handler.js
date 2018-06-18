@@ -5,13 +5,12 @@ const resetPasswordHandler = async (req, res, next) => {
     if(!req.body) return res.responseError("INVALID_INPUT_PARAM", "Input cannot be empty !!!");
     
     // check token
-    const token = req.body.token || req.query.token || req.headers['x-access-token'];
-
+    const manager = req.body.manager;
     const object = {
       name: req.body.name,
-      display_name: req.body.display_name,
+      type: req.body.type
     };
-    const user = await update(object, token);
+    const user = await update(object, manager);
     res.responseSuccess({success: true, data: user});
     next();
   }

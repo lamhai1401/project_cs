@@ -7,9 +7,6 @@ const user_schema = new mongoose.Schema({
   password: {
     type: String
   },
-  display_name: {
-    type: String
-  },
   name: {
     type: String
   },

@@ -4,7 +4,7 @@ const KEY = 'q225234454>>*(&*^&%^*%@!651d.0g654gd8fh/97t83AGDHGNNGF4t53er1df.b0f
 async function createToken(payload) {
   try {
     const token = await new Promise((resolve, reject) => {
-      jwt.sign(payload, KEY, {algorithm: 'HS256', expiresIn: '2 days'}, (err, token) => {
+      jwt.sign(payload, KEY, {algorithm: 'HS256', expiresIn: '2 hours'}, (err, token) => {
         if (err) return reject(err);
         resolve(token);
       });
