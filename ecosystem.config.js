@@ -14,6 +14,10 @@ module.exports = {
         COMMON_VARIABLE: 'true',
         PORT: '3000',
       },
+      env_sandbox : {
+        NODE_ENV: 'sandbox',
+        PORT: '3000',
+      },
       env_production : {
         NODE_ENV: 'production',
         PORT: '3000',

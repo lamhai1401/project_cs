@@ -1,1 +1,11 @@
-{}
+{
+  "SERVER": {
+    "PORT": 3000
+  },
+  "MONGODB": {
+    "URI": "mongodb://csportal:mtpJ6dk25mYvABUf@localhost:27017/csportal"
+  },
+  "HOST": {
+    "INDEX": "/api/v1"
+  }
+}
