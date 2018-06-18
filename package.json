@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:sandbox": "cross-env NODE_ENV=sandbox node ./server.js"
+    "start:sandbox": "cross-env NODE_ENV=sandbox node ./server.js",
+    "start:sandboxtest": "cross-env NODE_ENV=sandbox node ./index.test.js"
   },
   "keywords": [
     "cs"
