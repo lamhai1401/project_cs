@@ -6,6 +6,7 @@ const jwt     = require('../../util/jwt');
 function login(object) {
   return new Promise(async(resolve, reject) => {
     const user = await users.findOne({email: object.email});
+
     if(!user) {
       return reject('Invalid email');
     };
@@ -20,16 +21,13 @@ function login(object) {
     // create login
     logins.create({
       user_id: user._id,
-      role_type: user.role_type,
-      name: user.info.name,
-      display_name: user.display_name
+      email: user.email,
+      display_name: user.display_name,
     });
-    console.log(object);
     // update token
     user.token = await jwt.createToken(object);
     user.updated_at = Date.now();
     user.save();
-
     resolve(user);
   });
 }

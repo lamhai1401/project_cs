@@ -1,10 +1,17 @@
 const mongoose = require('mongoose');
 
-const per_user_urls_schema = new mongoose.Schema({
-  name: {
+const role_pers_schema = new mongoose.Schema({
+  id_role: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'roles'
+  },
+  group: {
     type: String
   },
   url: {
+    type: String
+  },
+  name: {
     type: String
   },
   status: {
@@ -21,5 +28,5 @@ const per_user_urls_schema = new mongoose.Schema({
   }
 });
 
-const per_user_urls = mongoose.model('per_user_urls', per_user_urls_schema);
-module.exports = per_user_urls;
+const role_pers = mongoose.model('role_pers', role_pers_schema);
+module.exports = role_pers;

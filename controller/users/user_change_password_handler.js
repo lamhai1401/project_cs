@@ -4,11 +4,8 @@ const change_password_handler = async (req, res, next) => {
   try {
     if(!req.body) return res.responseError("INVALID_INPUT_PARAM", "Input cannot be empty !!!");
     
-    // check token
+    // get token
     const token = req.body.token || req.query.token || req.headers['x-access-token'];
-    if (!token) {
-      return res.responseFailAuth("UNAUTHORIZED_ERROR", "You need to log in to do it");
-    };
     const object = {
       password: req.body.password,
     };

@@ -6,7 +6,7 @@ const string= require('../../util/string');
 function update(object, token) {
   return new Promise( async (resolve, reject) => {
     
-    // get manager role id
+    // get info from token
     token = await jwt.verifyToken(token);
     if(token == 'jwt expired') {
       return reject('Log in again');
@@ -25,9 +25,7 @@ function update(object, token) {
     }
 
     // map new user to current user
-    user.info.address     = object.address;
-    user.info.passport    = object.passport;
-    user.info.name        = await string.capitalize(object.name);
+    user.name        = await string.capitalize(object.name);
     user.display_name     = await string.capitalize(object.display_name);
     user.updated_at       = Date.now();
     // save

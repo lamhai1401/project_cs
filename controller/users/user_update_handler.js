@@ -6,15 +6,10 @@ const resetPasswordHandler = async (req, res, next) => {
     
     // check token
     const token = req.body.token || req.query.token || req.headers['x-access-token'];
-    if (!token) {
-      return res.responseFailAuth("UNAUTHORIZED_ERROR", "You need to log in to do it");
-    };
 
     const object = {
-      address: req.body.address,
       name: req.body.name,
       display_name: req.body.display_name,
-      passport: req.body.passport
     };
     const user = await update(object, token);
     res.responseSuccess({success: true, data: user});

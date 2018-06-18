@@ -1,31 +1,17 @@
 const mongoose = require('mongoose');
 
-const User_Schema = new mongoose.Schema({
-  email: {
+const user_schema = new mongoose.Schema({
+  email : {
     type: String
   },
   password: {
-    type: String,
-  },
-  role_type : {
-   type: String
+    type: String
   },
   display_name: {
     type: String
   },
-  info : {
-    name: {
-      type: String
-    },
-    passport: {
-      type: String
-    },
-    address: {
-      type: String
-    },
-    phone_number: {
-      type: String
-    },
+  name: {
+    type: String
   },
   token:{
     type: String
@@ -44,5 +30,5 @@ const User_Schema = new mongoose.Schema({
   }
 });
 
-const Users = mongoose.model('users', User_Schema);
+const Users = mongoose.model('users', user_schema);
 module.exports = Users;

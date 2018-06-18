@@ -2,16 +2,13 @@ const mongoose = require('mongoose');
 
 const Login_Schema = new mongoose.Schema({
   user_id: {
-    type: mongoose.Schema.ObjectId,
-    ref:   'accounts'
+    type: mongoose.Schema.Types.ObjectId,
+    ref:   'users'
   },
-  role_type: {
+  email: {
     type: String
   },
   name: {
-    type: String
-  },
-  display_name: {
     type: String
   },
   login_at: {

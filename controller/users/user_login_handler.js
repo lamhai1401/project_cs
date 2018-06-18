@@ -2,6 +2,7 @@ const login = require('../../services/users/user_login');
 
 const loginHandler = async (req, res, next) => {
   try {
+    // console.log(req.route.path);
     if(!req.body) return res.responseError("INVALID_INPUT_PARAM", "Input cannot be empty !!!");
     const object = {
       email: req.body.email,

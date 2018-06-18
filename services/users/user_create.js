@@ -2,58 +2,43 @@ const users       = require('../../models/users');
 const string      = require('../../util/string');
 const roles       = require('../../models/roles');
 const hash        = require('../../util/hash').hash;
-const check_role  = require('../roles/check_role');
-const jwt         = require('../../util/jwt');
+const user_roles  = require('../../models/user_role');
 
-function create(object, token, manager_role_detail_code) {
+function create(object) {
   return new Promise( async(resolve, reject) => {
 
-    // get manager role id
-    token = await jwt.verifyToken(token);
-    if(token == 'jwt expired') {
-      return reject('Log in again');
-    }
-    const manager_role_type = token.role_type;
-
-    // check role
-    const isRightRole = await check_role(manager_role_type, manager_role_detail_code);
-    if( isRightRole != true ) {
-      return reject(isRightRole);
-    }
     // format
-    object.info.name  = string.capitalize(object.info.name);
-    object.role_type  = string.createcode(object.role_type);
-    object.password   = await hash(object.password);
-    
-    // check role_type is exist or not
-    const role = await roles.findOne({type: role_type});
-    if(!role) {
-      return reject('Invalid role type');
+    object.password     = await hash(object.password);
+    object.display_name = string.capitalize(object.display_name);
+    object.name         = string.capitalize(object.name);
+    object.role_type    = string.createcode(object.role_type);
+
+    // check role_type is exist or not and not admin type
+    const role = await roles.findOne({type: object.role_type});
+    if(!role || role.status == 0) {
+      return reject('Invalid/Disable role type');
+    }
+    if(role.type == 'ADMIN') {
+      return reject('You can not create new User with ADMIN type');
     }
 
     // check existance user
     const ex_user = await users.findOne({email: object.email});
     if(ex_user) return reject('Email is already existance. Choose another email');
 
-    const new_user = await users.create(object);
-    resolve (new_user);
+    const new_user        = await users.create(object);
+    await user_roles.create({
+      id_role: role._id,
+      id_user: new_user._id
+    });
+
+    resolve({
+      email: new_user.email,
+      display_name: new_user.display_name,
+      name: new_user.name,
+      role: role.name
+    });
   })
 };
 
 module.exports = create;
-
-// const object = {
-//   email: 'lamthanhhai141@gmail.com',
-//   password: '123456',
-//   //srole: 'admin',
-//   display_name: 'Chăm sóc khách hàng',
-//   info: {
-//     name: 'Thanh Hải',
-//     passport: '334808394',
-//     address: '56/3 Văn chung- f.13- q.Tân Bình'
-//   },
-// };
-
-// create(object)
-// .then(data => console.log(data))
-// .catch(err => console.log(err));
