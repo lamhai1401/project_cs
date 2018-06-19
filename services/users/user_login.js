@@ -19,13 +19,14 @@ function login(object) {
     };
     
     // create login
-    logins.create({
+    const login = await logins.create({
       user_id: user._id,
       email: user.email,
       display_name: user.display_name,
     });
     // update token
     user.token = await jwt.createToken(object);
+    user.last_login = login.login_at;
     user.updated_at = Date.now();
     user.save();
     resolve(user);

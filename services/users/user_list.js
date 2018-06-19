@@ -8,17 +8,19 @@ function list_users() {
           from: "user_roles",
           localField: "_id",
           foreignField: "id_user",
-          as: "userRole"
+          as: "user_role"
         }
-      }, {
+      },
+      {
         $unwind: {
-          path: "$userRole",
+          path: "$user_role",
           preserveNullAndEmptyArrays: false
         }
-      }, {
+      },
+      {
         $lookup: {
           from: "roles",
-          localField: "userRole.id_role",
+          localField: "user_role.id_role",
           foreignField: "_id",
           as: "role"
         }
@@ -28,13 +30,22 @@ function list_users() {
           path: "$role",
           preserveNullAndEmptyArrays: false
         }
-      }
+      },
+      // {
+      //   $lookup: {
+      //     from: "history_logins",
+      //     localField: "user_role.id_user",
+      //     foreignField: "user_id", 
+      //     as: "last_login"
+      //   }
+      // },
     ]);
     
     // check empty list
     if(!list) {
       return reject('Can not list user');
-    }
+    };
+
     resolve(list);
   });
 };

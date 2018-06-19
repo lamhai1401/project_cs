@@ -21,5 +21,5 @@ const Login_Schema = new mongoose.Schema({
   }
 });
 
-const Login = mongoose.model('logins', Login_Schema);
+const Login = mongoose.model('history_logins', Login_Schema);
 module.exports = Login;

@@ -7,7 +7,6 @@ const user_find   = require('./user_find_handler');
 const user_list   = require('./user_list_handler');
 const user_reset_password = require('./user_reset_password_handler');
 const user_change_password = require('./user_change_password_handler');
-const user_change_role = require('./user_change_role_handler');
 module.exports = {
   login: user_login,
   create: user_create,
@@ -18,5 +17,4 @@ module.exports = {
   update: user_update,
   resetpassword: user_reset_password,
   changepassword: user_change_password,
-  // change_role: user_change_role,
 }
