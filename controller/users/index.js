@@ -9,12 +9,12 @@ const user_reset_password = require('./user_reset_password_handler');
 const user_change_password = require('./user_change_password_handler');
 module.exports = {
   login: user_login,
-  create: user_create,
-  disable: user_disable,
-  enable: user_enable,
+  // create: user_create,
+  // disable: user_disable,
+  // enable: user_enable,
   // find: user_find,
-  list: user_list,
-  update: user_update,
-  resetpassword: user_reset_password,
-  changepassword: user_change_password,
+  // list: user_list,
+  // update: user_update,
+  // resetpassword: user_reset_password,
+  // changepassword: user_change_password,
 }

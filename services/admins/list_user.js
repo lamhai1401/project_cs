@@ -1,9 +1,8 @@
-const users       = require('../../models/users');
-const mongoose    = require('mongoose');
+const users = require('../../models/users');
 
-function find(object) {
+function list_users() {
   return new Promise( async(resolve, reject) => {
-    const user = await users.aggregate([
+    const list = await users.aggregate([
       {
         $lookup: {
           from: "user_roles",
@@ -20,7 +19,7 @@ function find(object) {
       },
       {
         $lookup: {
-          from: "role_pers",
+          from: "roles",
           localField: "user_role.id_role",
           foreignField: "_id",
           as: "role"
@@ -32,26 +31,15 @@ function find(object) {
           preserveNullAndEmptyArrays: false
         }
       },
-      {
-        $lookup: {
-          from: "role_pers",
-          localField: "user_role.id_role",
-          foreignField: "id_role", 
-          as: "action"
-        }
-      },
-      {
-        $match : { _id : object.id}
-      }
     ]);
-    console.log(user);
+    
     // check empty list
-    if(!user) {
+    if(!list[0]) {
       return reject('Can not list user');
     };
 
-    resolve(user);
+    resolve(list);
   });
 };
 
-module.exports = find;
+module.exports = list_users;

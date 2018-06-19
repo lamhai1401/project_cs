@@ -1,21 +1,25 @@
-const find = require('../../services/users/user_find');
+const create = require('../../services/users/user_create');
 
 const createHandler = async (req, res, next) => {
   try {
     if(!req.body) return res.responseError("INVALID_INPUT_PARAM", "Input cannot be empty !!!");
+
     // create new object
     const object = {
-      id: req.params.id,
+      email: req.body.email,
+      password: req.body.password,
+      name: req.body.name,
+      role_type: req.body.role
     };
-    const user = await find(object);
+    const user = await create(object);
     res.responseSuccess({success: true, data: user});
     next();
   }
   catch(err) {
     if(err.message) {
-      return res.responseError("USER_FIND_FAILED", err.message);
+      return res.responseError("CREATED_USER_FAILED", err.message);
     }
-    return res.responseError("USER_FIND_FAILED", err);
+    return res.responseError("CREATED_USER_FAILED", err);
   }
 };
 

@@ -57,7 +57,7 @@ app.use(lusca.xframe('SAMEORIGIN'));
 app.use(lusca.xssProtection(true));
 app.use(errorhandler());
 app.use(handler);
-app.use(dispatcher);
+//app.use(dispatcher);
 
 /* Static resources */
 app.use('/public', express.static(path.join(__dirname, 'public')));
