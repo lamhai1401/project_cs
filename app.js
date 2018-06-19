@@ -2,6 +2,7 @@
  * Module dependencies.
  */
 const express       = require('express');
+const cors          = require('cors');
 const body          = require('body-parser');
 const path          = require('path');
 const logger        = require('morgan');
@@ -19,6 +20,7 @@ const dispatcher    = require('./middleware/dispatcher');
  */
 const app = express();
 
+app.use(cors());
 app.use(body.json());
 app.use(body.urlencoded({extended: true}));
 
