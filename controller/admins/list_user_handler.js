@@ -1,4 +1,4 @@
-const list = require('../../services/users/user_list');
+const list = require('../../services/admins/list_user');
 
 const list_user_handler = async (req, res, next) => {
   try {

@@ -1,4 +1,4 @@
-const update = require('../../services/users/user_update');
+const update = require('../../services/admins/update_user');
 
 const resetPasswordHandler = async (req, res, next) => {
   try {

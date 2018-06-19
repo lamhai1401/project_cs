@@ -1,4 +1,4 @@
-const disable_user = require('../../services/users/user_disable');
+const disable_user = require('../../services/admins/block_user');
 
 const disable_user_handler = async (req, res, next) => {
   try {

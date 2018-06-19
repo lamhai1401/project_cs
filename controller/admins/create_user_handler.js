@@ -1,4 +1,4 @@
-const create = require('../../services/users/user_create');
+const create = require('../../services/admins/createa_user');
 
 const createHandler = async (req, res, next) => {
   try {
