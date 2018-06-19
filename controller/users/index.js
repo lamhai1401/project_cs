@@ -14,7 +14,7 @@ module.exports = {
   disable: user_disable,
   enable: user_enable,
   // find: user_find,
-  // list: user_list,
+  list: user_list,
   update: user_update,
   resetpassword: user_reset_password,
   changepassword: user_change_password,

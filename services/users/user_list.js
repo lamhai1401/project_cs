@@ -1,30 +1,42 @@
-// const users       = require('../../models/users');
-// const check_role  = require('../roles/check_role');
-// const jwt         = require('../../util/jwt');
+const users = require('../../models/users');
 
-// function list(token, manager_role_detail_code) {
-//   return new Promise( async(resolve, reject) => {
+function list_users() {
+  return new Promise( async(resolve, reject) => {
+    const list = await users.aggregate([
+      {
+        $lookup: {
+          from: "user_roles",
+          localField: "_id",
+          foreignField: "id_user",
+          as: "userRole"
+        }
+      }, {
+        $unwind: {
+          path: "$userRole",
+          preserveNullAndEmptyArrays: false
+        }
+      }, {
+        $lookup: {
+          from: "roles",
+          localField: "userRole.id_role",
+          foreignField: "_id",
+          as: "role"
+        }
+      },
+      {
+        $unwind: {
+          path: "$role",
+          preserveNullAndEmptyArrays: false
+        }
+      }
+    ]);
+    
+    // check empty list
+    if(!list) {
+      return reject('Can not list user');
+    }
+    resolve(list);
+  });
+};
 
-//     // get manager role id
-//     token = await jwt.verifyToken(token);
-//     if(token == 'jwt expired') {
-//       return reject('Log in again');
-//     }
-//     const manager_role_type = token.role_type;
-
-//     // check role
-//     const isRightRole = await check_role(manager_role_type, manager_role_detail_code);
-//     if( isRightRole != true ) {
-//       return reject(isRightRole);
-//     }
-
-//     const user_list = await users.find();
-//     if(!user_list[0]) {
-//       return reject('Database error');
-//     }
-//     user_list.shift();
-//     resolve (user_list);
-//   })
-// };
-
-// module.exports = list;
+module.exports = list_users;
