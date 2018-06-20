@@ -1,10 +1,10 @@
 const users = require('../../models/users');
 const hash  = require('../../util/hash').hash;
 
-function change_password(object, token, manager) {
+function change_password(object, token) {
   return new Promise(async (resolve, reject) => {
 
-    const email = manager.email;
+    const email = object.email;
 
     const user = await users.findOne({email: email});
     if(!user) {
@@ -29,3 +29,14 @@ function change_password(object, token, manager) {
 };
 
 module.exports = change_password;
+
+//Change Pass
+//1 Tìm user đó (check tồn tại) getUsers
+//2 So khớp token
+//3 Verify pass mới
+//4 Update password= new Passsword
+
+
+//Block user
+//1 Check user đó có tồn tại
+//2 Update status = 0

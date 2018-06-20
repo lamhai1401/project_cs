@@ -1,36 +1,45 @@
-const users   = require('../../models/users')
-const logins  = require('../../models/logins');
-const compare = require('../../util/hash').compare;
-const jwt     = require('../../util/jwt');
+const LoginsModel      = require('../../models/logins');
+const compare     = require('../../util/hash').compare;
+const jwt         = require('../../util/jwt');
+const get_user  = require('./get_user');
 
-function login(object) {
-  return new Promise(async(resolve, reject) => {
-    const user = await users.findOne({email: object.email});
+module.exports = (object) => {
+  return new Promise((resolve, reject) => {
+    let time = Date.now();
+    //Find User
+    get_user(object).then(user => {
+      if(!user) return reject('User don\'t exist');
+      if(user.status == 0) return reject('Your account was disabled');
+      //Verify password
+      return compare(object.password, user.password).then(res=>{
+        if(!res) return reject('Wrong password');
+        return user;
+      });
+    }).then(user => {
+      // gen token
+      return jwt.createToken(object).then(token =>{
+        return {
+          token: token,
+          user: user,
+        }
+      });
+    }).then(({token, user}) => {
+      let history_login = new LoginsModel({
+        user_id: user._id,
+        email: user.email,
+        login_at: time,
+      });
+      history_login.save();
+      //update token for document user
+      user.token = token;
+      user.last_login = time;
+      user.updated_at = Date.now();
 
-    if(!user) {
-      return reject('Invalid email');
-    };
-    const isPasswordRight = await compare(object.password, user.password);
-    if (!isPasswordRight) {
-      return reject('Wrong password');
-    };
-    if(user.status == 0) {
-      return reject('Your account was disabled');
-    };
-    
-    // create login
-    const login = await logins.create({
-      user_id: user._id,
-      email: user.email,
-      display_name: user.display_name,
-    });
-    // update token
-    user.token = await jwt.createToken(object);
-    user.last_login = login.login_at;
-    user.updated_at = Date.now();
-    user.save();
-    resolve(user);
+      resolve(user);
+      user.save((err, res)=>{
+        console.log('Update user thành công', res)
+      }); 
+    }).catch(err => reject(err));
   });
-}
+};
 
-module.exports = login;

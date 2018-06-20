@@ -1,4 +1,4 @@
-const disable_user = require('../../services/admins/block_user');
+const userServices = require('../../services/users');
 
 const disable_user_handler = async (req, res, next) => {
   try {
@@ -19,4 +19,15 @@ const disable_user_handler = async (req, res, next) => {
   }
 };
 
-module.exports = disable_user_handler;
+// module.exports = disable_user_handler;
+
+module.exports = (req, res, next) => {
+  //Verify data
+  const email = req.body.email;
+
+  userServices.update_user(email, { status: '0'}).then(user=> {
+    res.responseSuccess({success: true, data: user});
+  }).catch(err => {
+    return res.responseError("DISABLE_FAILED", err);
+  });
+}

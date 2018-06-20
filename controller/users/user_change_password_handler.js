@@ -6,11 +6,11 @@ const change_password_handler = async (req, res, next) => {
     
     // get token
     const token = req.body.token || req.query.token || req.headers['x-access-token'];
-    const manager = req.body.manager;
     const object = {
       password: req.body.password,
+      email: req.body.email
     };
-    const user   = await change_password(object, token, manager);
+    const user   = await change_password(object, token);
     res.responseSuccess({success: true, data: user});
     next();
   }

@@ -1,6 +1,6 @@
 const users       = require('../../models/users');
 const roles       = require('../../models/roles');
-const user_roles   = require('../../models/user_role');
+const user_roles  = require('../../models/user_role');
 const hash        = require('../../util/hash').hash;
 const jwt         = require('../../util/jwt');
 
@@ -13,9 +13,10 @@ function reset_password(object) {
       return reject('Invalid user email');
     };
 
-    // valid reset password of admin
+    // invalid reset password of admin
     const user_role = await user_roles.findOne({id_user: user._id});
     const role      = await roles.findOne({_id: user_role.id_role});
+
     if(role.type == 'ADMIN') {
       return reject('You can not reset ADMIN password');
     }

@@ -1,4 +1,4 @@
-const enable_user = require('../../services/users/user_enable');
+const enable_user = require('../../services/admins/unblock_user');
 
 const enable_user_handler = async (req, res, next) => {
   try {

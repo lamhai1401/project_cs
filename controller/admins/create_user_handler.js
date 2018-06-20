@@ -1,26 +1,45 @@
-const create = require('../../services/admins/createa_user');
+const validate    = require('validate.js');
+const create_user = require('../../services/users/create_user');
+const string      = require('../../util/string');
+const hash        = require('../../util/hash').hash;
 
-const createHandler = async (req, res, next) => {
-  try {
-    if(!req.body) return res.responseError("INVALID_INPUT_PARAM", "Input cannot be empty !!!");
-
-    // create new object
-    const object = {
-      email: req.body.email,
-      password: req.body.password,
-      name: req.body.name,
-      role_type: req.body.role
-    };
-    const user = await create(object);
-    res.responseSuccess({success: true, data: user});
-    next();
-  }
-  catch(err) {
-    if(err.message) {
-      return res.responseError("CREATED_USER_FAILED", err.message);
-    }
-    return res.responseError("CREATED_USER_FAILED", err);
+const constraints = {
+  email: {
+    presence: true,
+    email: true,
+  },
+  password: {
+    presence: true,
+  },
+  role_type: {
+    presence: true,
+    format: /(ADMIN|CS_AGENT|READ)/,
   }
 };
 
-module.exports = createHandler;
+module.exports = (req, res, next) => {
+  
+  // mapping data from request
+  const object = {
+    email: req.body.email,
+    password: req.body.password,
+    name: req.body.name,
+    role_type: req.body.role
+  };
+
+  let err = validate(object, constraints);
+  if (err) return res.json(err);
+
+  // hash password
+  hash(object.password).then(hash_pass => {
+    object.password = hash_pass;
+    return create_user(object)
+  }).then(user => {
+    res.responseSuccess({success: true, data: user});
+  }).catch(err => {
+    if(err.message) {
+      return res.responseError("USER_CREATED_FAILED", err.message);
+    }
+    return res.responseError("USER_CREATED_FAILED", err);
+  });
+};

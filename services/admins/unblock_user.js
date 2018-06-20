@@ -1,6 +1,4 @@
 const users       = require('../../models/users');
-const check_role  = require('../roles/check_role');
-const jwt         = require('../../util/jwt');
 
 function enable_user(object) {
   return new Promise ( async(resolve, reject) => {

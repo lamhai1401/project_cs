@@ -1,4 +1,4 @@
-const find = require('../../services/users/user_find');
+const find = require('../../services/admins/find_user');
 
 const createHandler = async (req, res, next) => {
   try {

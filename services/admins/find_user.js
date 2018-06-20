@@ -41,7 +41,9 @@ function find(object) {
         }
       },
       {
-        $match : { _id : object.id}
+        $project: {
+          _id: object.id
+        }
       }
     ]);
     console.log(user);

@@ -17,26 +17,16 @@ async function hash(password){
     return hashPassword;
   }
   catch (err) {
-    return err.message;
+    return err;
   }
 };
 
 // trả về true | false
-async function compare(password, hashPassword) {
-  try {
-    const isPasword = await new Promise((resolve, reject) => {
-      bcrypt.compare(password, hashPassword, (err, res) => {
-        if (err) return reject(err);
-        return resolve(res);
-      });
-    });
-    return isPasword;
-  }
-  catch(err){
-    return err.message;
-  }
+function compare(password, hashPassword) {
+  return bcrypt.compare(password, hashPassword);
 }
 
 module.exports = { 
-    hash: hash,
-    compare: compare };
+  hash: hash,
+  compare: compare 
+};
