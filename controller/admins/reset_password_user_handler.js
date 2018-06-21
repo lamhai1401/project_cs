@@ -1,5 +1,16 @@
 const userServices = require('../../services/users');
 const hash         = require('../../util/hash').hash;
+const validate    = require('validate.js');
+
+const constraints = {
+  email: {
+    presence: true,
+    email: true,
+  },
+  password: {
+    presence: true,
+  },
+};
 
 module.exports = (req, res, next) => {
   // mapping data from client
@@ -8,6 +19,8 @@ module.exports = (req, res, next) => {
     password: req.body.password
   };
 
+  const err = validate(object, constraints);
+  if (err) return res.responseError("USER_RESET_PASSWORD_FAILED", err);
   userServices.get_user({email: req.user.email})
   .then(user => {
     if(user.role != 'ADMIN') return Promise.reject('You dont have permission to do it');
