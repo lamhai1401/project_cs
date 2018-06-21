@@ -1,13 +1,13 @@
 const LoginsModel      = require('../../models/logins');
 const compare     = require('../../util/hash').compare;
 const jwt         = require('../../util/jwt');
-const get_user  = require('./get_user');
+const user_model  = require('../../models/users');
 
 module.exports = (object) => {
   return new Promise((resolve, reject) => {
-    let time = Date.now();
+    const time = Date.now();
     //Find User
-    get_user(object).then(user => {
+    user_model.findOne({email: object.email}).then(user => {
       if(!user) return reject('User don\'t exist');
       if(user.status == 0) return reject('Your account was disabled');
       //Verify password
@@ -33,12 +33,10 @@ module.exports = (object) => {
       //update token for document user
       user.token = token;
       user.last_login = time;
-      user.updated_at = Date.now();
+      user.updated_at = time;
 
       resolve(user);
-      user.save((err, res)=>{
-        //console.log('Update user thành công', res)
-      }); 
+      user.save(); 
     }).catch(err => reject(err));
   });
 };
