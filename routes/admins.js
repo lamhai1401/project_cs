@@ -8,6 +8,6 @@ router.post("/users", admin_controller.create);
 router.patch("/users/block", admin_controller.block);
 router.patch("/users/unblock", admin_controller.unblock);
 router.patch("/users", admin_controller.update);
-router.patch("users/password/reset", admin_controller.reset);
+router.patch("/users/password/reset", admin_controller.reset);
 
 module.exports = router;
