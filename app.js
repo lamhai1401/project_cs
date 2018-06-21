@@ -14,7 +14,8 @@ const mongo         = require('config').MONGODB.URI;
 const index_url     = require('config').HOST.INDEX;
 const handler       = require('./util/AppResponse');
 const router        = require('./routes');
-const dispatcher    = require('./middleware/dispatcher');
+const verify_token  = require('./middleware/verify_token');
+const dispatcher    = require('./middleware/admin_dispatcher');
 /**
  * Main app.
  */
@@ -57,7 +58,8 @@ app.use(lusca.xframe('SAMEORIGIN'));
 app.use(lusca.xssProtection(true));
 app.use(errorhandler());
 app.use(handler);
-//app.use(dispatcher);
+app.use(verify_token);
+app.use(dispatcher);
 
 /* Static resources */
 app.use('/public', express.static(path.join(__dirname, 'public')));

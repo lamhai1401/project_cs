@@ -2,5 +2,5 @@ const router          = require('express').Router();
 const user_controller = require('../controller/users');
 
 router.post('/login', user_controller.login);
-// router.patch('/password/change', user_controller.changepassword);
+router.put("/password/change", user_controller.change_password);
 module.exports = router;

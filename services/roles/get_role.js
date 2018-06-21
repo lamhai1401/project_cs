@@ -6,6 +6,7 @@ module.exports = (object) => {
     object.type = string.createcode(object.type);
     roles_model.findOne({type: object.type}, (err, role) => {
       if(err) return reject(err.message);
+      if(!role) return reject('Invalid role');
       resolve(role);
     });
   });

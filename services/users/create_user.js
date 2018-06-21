@@ -24,6 +24,6 @@ module.exports = (object) => {
     }).then(object => {
       return user_role_model.create({id_role: object.role._id, id_user: object.user._id}).then((user)=>{
         return object;
-      })
+      });
     });
 };

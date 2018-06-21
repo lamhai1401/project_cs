@@ -1,22 +1,17 @@
-const enable_user = require('../../services/admins/unblock_user');
+const userServices = require('../../services/users');
 
-const enable_user_handler = async (req, res, next) => {
-  try {
-    if(!req.body) return res.responseError("INVALID_INPUT_PARAM", "Input cannot be empty !!!");
-
-    const object = {
-      email: req.body.email,
-    };
-    const user = await enable_user(object);
-    res.responseSuccess({success: true, data: user});
-    next();
+module.exports = (req, res, next) => {
+  //Verify data
+  const object = {
+    email: req.body.email
   }
-  catch(err) {
-    if(err.message) {
-      return res.responseError("USER_ENABLE_FAILED", err.message);
-    }
-    return res.responseError("USER_ENABLE_FAILED", err);
-  }
-};
-
-module.exports = enable_user_handler;
+  userServices.get_user(object)
+  .then(user => {
+    userServices.update_user(object.email, { status: '1', updated_at: Date.now()}).then(user=> {
+      res.responseSuccess({success: true, data: user});
+    });
+  })
+  .catch(err => {
+    return res.responseError("ENABLE_FAILED", err);
+  });
+}

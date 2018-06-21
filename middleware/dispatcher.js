@@ -14,20 +14,8 @@ const dispatcher = async (req, res, next) => {
 
   if ( path === 'login') return next();
 
-  // check token
-  const token = req.body.token || req.query.token || req.headers['x-access-token'];
-  if (!token) {
-    return res.responseFailAuth("UNAUTHORIZED_ERROR", "You need to log in to do it");
-  };
-  
-  // check expired token 
-  const info = await jwt.verifyToken(token);
-  if(info == 'jwt expired') {
-    return res.responseFailAuth("UNAUTHORIZED_ERROR", "You need to log in to do it");
-  };
-
   // get user info and check it was disabled
-  const user = await users.findOne({email: info.email});
+  const user = await users.findOne({email: req.user.email});
   if(!user || user.status == 0) {
     return res.responseFailAuth("UNAUTHORIZED_ERROR", 'Invalid/Disabled user');
   }
