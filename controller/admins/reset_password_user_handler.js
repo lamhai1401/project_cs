@@ -20,7 +20,7 @@ module.exports = (req, res, next) => {
   })
   .then(user => {
     return hash(object.password).then(hash_pass => {
-      return userServices.update_user({email: user.email}, {password: hash_pass, updated_at: Date.now()})
+      return userServices.update_user(user.email, {password: hash_pass, updated_at: Date.now()})
     })
   })
   .then(user => {
