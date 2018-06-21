@@ -37,7 +37,7 @@ module.exports = (object) => {
 
       resolve(user);
       user.save((err, res)=>{
-        console.log('Update user thành công', res)
+        //console.log('Update user thành công', res)
       }); 
     }).catch(err => reject(err));
   });
