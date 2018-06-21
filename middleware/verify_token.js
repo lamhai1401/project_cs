@@ -11,7 +11,6 @@ module.exports = (req, res, next) => {
   if (!token) {
     return res.responseFailAuth("UNAUTHORIZED_ERROR", "You need to log in to do it");
   };
-  
   // check expired token 
   jwt.verifyToken(token)
   .then(info => {
