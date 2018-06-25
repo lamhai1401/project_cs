@@ -9,13 +9,13 @@ module.exports = (req, res, next) => {
   // check token
   const token = req.body.token || req.query.token || req.headers['x-access-token'] || req.headers['authorization'];
   if (!token) {
-    return res.responseFailAuth("UNAUTHORIZED_ERROR", "You need to log in to do it");
+    return res.responseFailAuth("UNAUTHORIZED_ERROR", "Need to Login");
   };
   // check expired token 
   jwt.verifyToken(token)
   .then(info => {
     if(info == 'jwt expired') {
-      return res.responseFailAuth("UNAUTHORIZED_ERROR", "You need to log in to do it");
+      return res.responseFailAuth("UNAUTHORIZED_ERROR", "Login again");
     };
     req.user = info;
     next();

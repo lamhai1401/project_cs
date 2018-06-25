@@ -18,7 +18,7 @@ module.exports = (req, res, next) => {
   if (err) return res.responseError("USER_BLOCK_FAILED", err);
   userServices.get_user(object)
   .then(user => {
-    if (user.role == "ADMIN") return Promise.reject('You can not disable ADMIN');
+    if (user.role == "ADMIN") return Promise.reject('You can not block Admin');
     userServices.update_user(object.email, { status: '0', updated_at: Date.now()}).then(user=> {
       res.responseSuccess({success: true, data: user});
     });

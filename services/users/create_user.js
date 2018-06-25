@@ -6,15 +6,15 @@ const user_role_model = require('../../models/user_role');
 module.exports = (object) => {  
   return user_model.findOne({email: object.email})
     .then(user => {
-      if(user) return Promise.reject('Try to use another mail');
+      if(user) return Promise.reject('Existing Email');
       // check role_type is exist or not and not admin type
       return role_services.get_role_from_type({type: object.role_type});
     }).then(role => {
       if(!role || role.status == 0) {
-        return Promise.reject('Invalid/Disable role type');
+        return Promise.reject('This current role was disable or invalid');
       }
       if(role.type == 'ADMIN') {
-        return Promise.reject('You can not create new User with ADMIN type');
+        return Promise.reject('You can not create new user with Admin type');
       };
       return role;
     }).then(role => {

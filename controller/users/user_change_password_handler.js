@@ -13,9 +13,9 @@ module.exports = (req, res, next) => {
 
   userServices.get_user({email: email})
   .then(user => {
-    if(token != user.token) return Promise.reject('Log in again');
+    if(token != user.token) return Promise.reject('login agin');
     return compare(object.curr_password, user.password).then(isPassword => {
-      if(!isPassword) return Promise.reject('Your current password is incorrect');
+      if(!isPassword) return Promise.reject('Wrong password');
       return hash(object.new_password).then(hash_pass => hash_pass);
     })
   })

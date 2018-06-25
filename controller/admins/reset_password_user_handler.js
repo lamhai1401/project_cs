@@ -23,11 +23,11 @@ module.exports = (req, res, next) => {
   if (err) return res.responseError("USER_RESET_PASSWORD_FAILED", err);
   userServices.get_user({email: req.user.email})
   .then(user => {
-    if(user.role != 'ADMIN') return Promise.reject('You dont have permission to do it');
+    if(user.role != 'ADMIN') return Promise.reject('You dont have permission to do this');
   })
   .then(() => {
     return userServices.get_user({email: object.email}).then(user => {
-      if(user.role == 'ADMIN ') return Promise.reject('You can not reset ADMIN password');
+      if(user.role == 'ADMIN ') return Promise.reject('You can not reset Admin password');
       return user;
     });
   })
