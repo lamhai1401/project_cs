@@ -15,7 +15,7 @@ module.exports = (req, res, next) => {
   };
 
   const err = validate(object, constraints);
-  if (err) return res.responseError("USER_CREATED_FAILED", err);
+  if (err) return res.responseError("USER_BLOCK_FAILED", err);
   userServices.get_user(object)
   .then(user => {
     if (user.role == "ADMIN") return Promise.reject('You can not disable ADMIN');
@@ -24,6 +24,9 @@ module.exports = (req, res, next) => {
     });
   })
   .catch(err => {
-    return res.responseError("DISABLE_FAILED", err);
+    if(err.message) {
+      return res.responseError("USER_BLOCK_FAILED", err.message);
+    }
+    return res.responseError("USER_BLOCK_FAILED", err);
   });
 }

@@ -39,5 +39,10 @@ module.exports = (req, res, next) => {
   .then(user => {
     res.responseSuccess({success: true, data: user});
   })
-  .catch(err => res.responseError("USER_RESET_PASSWORD_FAILED", err));
+  .catch(err => {
+    if(err.message) {
+      return res.responseError("USER_RESET_PASSSWORD_FAILED", err.message);
+    }
+    return res.responseError("USER_RESET_PASSSWORD_FAILED", err);
+  });
 };

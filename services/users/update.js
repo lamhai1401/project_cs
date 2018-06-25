@@ -7,4 +7,4 @@ module.exports = (email, obj = {}) => {
       resolve(user);
     });
   });
-}
+};
