@@ -5,8 +5,8 @@ module.exports = (req, res, next) => {
   .then(list =>  res.responseSuccess({success: true, data: list}))
   .catch(err => {
     if(err.message) {
-      return res.responseError("USER_CREATED_FAILED", err.message);
+      return res.responseError("USER_LIST_FAILED", err.message);
     }
-    return res.responseError("USER_CREATED_FAILED", err);
+    return res.responseError("USER_LIST_FAILED", err);
   });
 }
