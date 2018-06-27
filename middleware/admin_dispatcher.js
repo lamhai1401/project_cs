@@ -1,6 +1,7 @@
 const userServices = require('../services/users');
 
 module.exports = (req, res, next) => {
+  console.log(req);
   userServices.get_user({email: req.user.email})
   .then(user => {
     if(user.role != 'ADMIN') return res.responseFailAuth("UNAUTHORIZED_ERROR", 'This service only for Admin role');

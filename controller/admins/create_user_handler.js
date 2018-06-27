@@ -28,20 +28,18 @@ module.exports = (req, res, next) => {
 
   let err = validate(object, constraints);
   if (err) return res.responseError("USER_CREATED_FAILED", err);
-  else {
-    // hash password
-    hash(object.password).then(hash_pass => {
-      object.password = hash_pass;
-      return create_user(object);
-    })
-    .then(user => {
-      res.responseSuccess({success: true, data: user});
-    })
-    .catch(err => {
-      if(err.message) {
-        return res.responseError("USER_CREATED_FAILED", err.message);
-      }
-      return res.responseError("USER_CREATED_FAILED", err);
-    });
-  }
+  // hash password
+  hash(object.password).then(hash_pass => {
+    object.password = hash_pass;
+    return create_user(object);
+  })
+  .then(user => {
+    res.responseSuccess({success: true, data: user});
+  })
+  .catch(err => {
+    if(err.message) {
+      return res.responseError("USER_CREATED_FAILED", err.message);
+    }
+    return res.responseError("USER_CREATED_FAILED", err);
+  });
 };

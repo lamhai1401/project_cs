@@ -22,8 +22,8 @@ module.exports = (req, res, next) => {
   })
   .catch(err => {
     if(err.message) {
-      return res.responseError("CHANGE_PASSWORD_FAILED", err.message);
+      return res.responseFailAuth("VERIFY_TOKEN_FAILED", err.message);
     }
-    return res.responseError("CHANGE_PASSWORD_FAILED", err);
+    return res.responseFailAuth("VERIFY_TOKEN_FAILED", err);
   });
 };
