@@ -7,11 +7,13 @@ const unblock_user        = require('./unblock_user_handler');
 const update_user         = require('./update_user_handler');
 const reset_password_user = require('./reset_password_user_handler');
 const add_pers            = require('./add_pers_handler');
+const remove_pers         = require('./remove_pers_handler');
 module.exports = {
   list_user: list_user,
   list_role: list_role,
   list_pers: list_pers,
   add_pers: add_pers,
+  remove_pers: remove_pers,
   create: create_user,
   block: block_user,
   unblock: unblock_user,

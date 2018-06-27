@@ -10,5 +10,6 @@ router.patch("/users/block", admin_controller.block);
 router.patch("/users/unblock", admin_controller.unblock);
 router.patch("/users", admin_controller.update);
 router.patch("/users/password/reset", admin_controller.reset);
+router.delete("/permissions", admin_controller.remove_pers);
 
 module.exports = router;

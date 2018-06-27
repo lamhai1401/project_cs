@@ -10,7 +10,9 @@ module.exports = (object) => {
     });
   })
   .then(per => {
-    per.role.push(object.role);
+    const index = per.role.indexOf(object.role);
+    if (index !== -1) (per.role.splice(index, 1));
+    console.log(per);
     per.save();
     return per;
   });
