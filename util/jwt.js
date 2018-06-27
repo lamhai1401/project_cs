@@ -10,21 +10,14 @@ function createToken(payload) {
   });
 };
 
-async function verifyToken(token) {
-  try {
-    const payload = await new Promise((resolve, reject) => {
-      jwt.verify(token, KEY, (err, payload) =>{
-        if (err) return reject(err);
-        resolve(payload);
-      });
+function verifyToken(token) {
+  return new Promise((resolve, reject) => {
+    jwt.verify(token, KEY, (err, payload) => {
+      if(err) return reject(err);
+      resolve(payload);
     });
-    return payload;
-  }
-  catch(err) {
-    return err.message;
-  };
+  });
 };
-
 
 module.exports = {
   createToken,
