@@ -1,25 +1,15 @@
 const bcrypt = require('bcrypt');
 
-async function hash(password){
-  try {
-    const salt = await new Promise ((resolve, reject) =>{
-      bcrypt.genSalt(10, (err, salt) => {
-        if (err) return reject (err);
-        resolve (salt);
-      }) 
-    });
-    const hashPassword = await new Promise((resolve, reject) => {
-      bcrypt.hash(password, salt, (err, data) => {
-        if (err) return reject(err);
-        return resolve(data);
-      });
-    });
-    return hashPassword;
-  }
-  catch (err) {
-    return err;
-  }
-};
+function hash(password) {
+  return new Promise((resolve, reject) => {
+    bcrypt.genSalt(10)
+    .then(salt => {
+      return bcrypt.hash(password, salt);
+    })
+    .then(hashPassword => resolve(hashPassword))
+    .catch(err => reject(err));
+  });
+}
 
 // trả về true | false
 function compare(password, hashPassword) {
