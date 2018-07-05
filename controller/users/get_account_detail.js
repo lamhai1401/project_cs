@@ -1,13 +1,13 @@
 const request = require('request');
 const secret  = require('config').KEY.AUTH;
-const hash    = require('crypto').createHmac('sha256', secret);
+const crypto  = require('crypto');
 const url     = 'https://testenv1.kryptono.exchange/k/cs/get-account-details';
 
 module.exports = (req, res, next) => {
-
+  // create new intance
+  const hash    = crypto.createHmac('sha256', secret);
   // mapping data from client
   const body = {email: req.body.email};
-
   // get signature
   const signature = hash.update(JSON.stringify(body)).digest('hex');
 
