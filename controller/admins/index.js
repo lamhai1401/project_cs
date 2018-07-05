@@ -8,6 +8,7 @@ const update_user         = require('./update_user_handler');
 const reset_password_user = require('./reset_password_user_handler');
 const add_pers            = require('./add_pers_handler');
 const remove_pers         = require('./remove_pers_handler');
+const reset_2fa           = require('./reset_2fa');
 module.exports = {
   list_user: list_user,
   list_role: list_role,
@@ -19,4 +20,5 @@ module.exports = {
   unblock: unblock_user,
   update: update_user,
   reset: reset_password_user,
+  reset_2fa: reset_2fa
 };

@@ -2,7 +2,7 @@ const request = require('request');
 const secret  = require('config').KEY.SECRET;
 const auth    = require('config').KEY.AUTH;
 const crypto  = require('crypto');
-const url     = 'https://testenv1.kryptono.exchange/k/cs/get-account-details';
+const url     = 'https://kryptono.exchange/k/cs/reset-gg';
 
 module.exports = (req, res, next) => {
   // create new intance
@@ -12,7 +12,6 @@ module.exports = (req, res, next) => {
   // get signature
   const signature = hash.update(JSON.stringify(body)).digest('hex');
 
-  // create a options of request
   const options = {
     method: 'POST',
     url: url,
@@ -28,17 +27,8 @@ module.exports = (req, res, next) => {
   };
 
   request(options, (error, response, body) => {
-    if (error) return res.responseError("GET_ACCOUNT_DETAIL_FAILED", err);
-    const account = {
-      email: body.email,
-      name: body.kyc_detail.first_name + body.kyc_detail.last_name,
-      google_auth_status: body.enable_google_2fa,
-      account_status: body.account_status,
-      kyc_status: body.kyc_status,
-      withdrawal_status: body.withdrawal_status,
-      sms_status: false
-    };
-    if (body.phone) account.sms_status = true;
-    res.responseSuccess({success: true, data: account});
+    if (error) return res.responseError("RESET_2FA_FAILED", err);
+    if(body.success) return res.responseSuccess({success: true, data: body});
+    return res.responseError("RESET_2FA_FAILED", body);
   });
 };

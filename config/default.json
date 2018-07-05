@@ -13,6 +13,7 @@
     "PASSWORD": ""
   },
   "KEY": {
-    "AUTH": "R244m0Fcs72OtwVc0ecQVtPbwqas2nu6I1MCLYQ5fr8="
+    "SECRET": "R244m0Fcs72OtwVc0ecQVtPbwqas2nu6I1MCLYQ5fr8=",
+    "AUTH": "75a45430d8a7a75740f22e9438eea452ec9e73b233494d04d35240451f3d8ad7"
   }
 } 
