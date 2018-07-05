@@ -21,6 +21,7 @@ module.exports = (req, res, next) => {
 
   const err = validate(object, constraints);
   if (err) return res.responseError("USER_RESET_PASSWORD_FAILED", err);
+  
   userServices.get_user({email: req.user.email})
   .then(user => {
     if(user.role != 'ADMIN') return Promise.reject('You dont have permission to do this');

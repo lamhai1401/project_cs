@@ -19,4 +19,4 @@ module.exports = {
   unblock: unblock_user,
   update: update_user,
   reset: reset_password_user,
-}
+};

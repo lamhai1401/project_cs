@@ -7,5 +7,12 @@
   },
   "HOST": {
     "INDEX": "/api/v1"
+  },
+  "ACCOUNT_ZENDESK": {
+    "USERNAME": "",
+    "PASSWORD": ""
+  },
+  "KEY": {
+    "AUTH": "R244m0Fcs72OtwVc0ecQVtPbwqas2nu6I1MCLYQ5fr8="
   }
 } 

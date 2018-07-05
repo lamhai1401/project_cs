@@ -18,7 +18,7 @@ module.exports = (object) => {
         if(!role) return Promise.reject('Invalid role');
         user.role = role.type;
         return user;
-      })
-    })
-  })
+      });
+    });
+  });
 };

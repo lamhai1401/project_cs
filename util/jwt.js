@@ -10,6 +10,15 @@ function createToken(payload) {
   });
 };
 
+function createTokenWithKey(payload, key) {
+  return new Promise((resolve, reject) => {
+    jwt.sign(payload, key, {algorithm: 'HS256', expiresIn: '2 hours'}, (err, token) => {
+      if (err) return reject(err);
+      resolve(token);
+    });
+  });
+};
+
 function verifyToken(token) {
   return new Promise((resolve, reject) => {
     jwt.verify(token, KEY, (err, payload) => {
@@ -21,5 +30,6 @@ function verifyToken(token) {
 
 module.exports = {
   createToken,
-  verifyToken
+  verifyToken,
+  createTokenWithKey
 };
