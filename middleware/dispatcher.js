@@ -1,8 +1,8 @@
-const users = require('../models/users');
-const user_role = require('../models/user_role');
-const roleServices = require('../services/roles');
-const permissions  = require('../models/permissions');
-const searching    = require('../util/setup_searching'); 
+const users         = require('../models/users');
+const user_role     = require('../models/user_role');
+const permissions   = require('../models/permissions');
+const roleServices  = require('../services/roles');
+const searching     = require('../util/setup_searching');
 
 module.exports = (req, res, next) => {
   

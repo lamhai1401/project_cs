@@ -1,17 +1,40 @@
-const request = require('request');
-const secret  = require('config').KEY.SECRET;
-const auth    = require('config').KEY.AUTH;
-const crypto  = require('crypto');
-const url     = 'https://kryptono.exchange/k/cs/reset-gg';
+const request       = require('request');
+const secret        = require('config').KEY.SECRET;
+const auth          = require('config').KEY.AUTH;
+const crypto        = require('crypto');
+const validate      = require('validate.js');
+const activities    = require('../../models/activities');
+const verify_ticket = require('../../services/krypto/verify_ticket');  
+const url           = 'https://testenv1.kryptono.exchange/k/cs/reset-gg';
+
+const constraints = {
+  email: {
+    presence: true,
+    email: true,
+  },
+  ticket_id: {
+    presence: true,
+  }
+};
 
 module.exports = (req, res, next) => {
   // create new intance
   const hash    = crypto.createHmac('sha256', secret);
   // mapping data from client
-  const body = {email: req.body.email};
+  const body      = {email: req.body.email};
+  // recording support activities
+  const object    = {
+    ticket_id:      req.body.ticket_id,
+    support_email:  req.user.email,
+    activitiy:      "Reset 2FA"
+  };
+  // validate input from client
+  const err = validate({email: body.email, ticket_id: object.ticket_id}, constraints);
+  if (err) return res.responseError("RESET_2FA_FAILED", err);
+
   // get signature
   const signature = hash.update(JSON.stringify(body)).digest('hex');
-
+  // setting request header
   const options = {
     method: 'POST',
     url: url,
@@ -25,10 +48,21 @@ module.exports = (req, res, next) => {
     body: body,
     json: true
   };
-
-  request(options, (error, response, body) => {
-    if (error) return res.responseError("RESET_2FA_FAILED", err);
-    if(body.success) return res.responseSuccess({success: true, data: body});
-    return res.responseError("RESET_2FA_FAILED", body);
+  // check valid ticket in both of zendesk and database
+  verify_ticket({ticket_id: object.ticket_id})
+  .then(isTicket => {
+    return request(options, (error, response, body) => {
+      if (error) return res.responseError("RESET_2FA_FAILED", err);
+      if(!body.success) return res.responseError("RESET_2FA_FAILED", 'This account is already disabled 2FA');
+      activities.create(object);
+      return res.responseSuccess({success: true, data: body});
+    });
+  })
+  .catch(err => {
+    if(err.message) {
+      return res.responseError("RESET_2FA_FAILED", err.message);
+    }
+    return res.responseError("RESET_2FA_FAILED", err);
   });
+
 };

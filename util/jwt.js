@@ -8,16 +8,7 @@ function createToken(payload) {
       resolve(token);
     });
   });
-};
-
-function createTokenWithKey(payload, key) {
-  return new Promise((resolve, reject) => {
-    jwt.sign(payload, key, {algorithm: 'HS256', expiresIn: '2 hours'}, (err, token) => {
-      if (err) return reject(err);
-      resolve(token);
-    });
-  });
-};
+}
 
 function verifyToken(token) {
   return new Promise((resolve, reject) => {
@@ -26,10 +17,28 @@ function verifyToken(token) {
       resolve(payload);
     });
   });
-};
+}
+
+function verifyTokenWithKey(token, key) {
+  return new Promise((resolve, reject) => {
+    jwt.verify(token, key, (err, payload) => {
+      if(err) return reject(err);
+      resolve(payload);
+    });
+  });
+}
+
+function unLimitToken(payload, KEY1) {
+  return new Promise((resolve, reject) => {
+    jwt.sign(payload, KEY1, {algorithm: 'HS256'}, (err, token) => {
+      if (err) return reject(err);
+      resolve(token);
+    });
+  });
+}
 
 module.exports = {
-  createToken,
-  verifyToken,
-  createTokenWithKey
+  createToken: createToken,
+  verifyToken: verifyToken,
+  verifyTokenWithKey: verifyTokenWithKey
 };

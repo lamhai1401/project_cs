@@ -8,12 +8,12 @@
   "HOST": {
     "INDEX": "/api/v1"
   },
-  "ACCOUNT_ZENDESK": {
-    "USERNAME": "",
-    "PASSWORD": ""
-  },
   "KEY": {
     "SECRET": "R244m0Fcs72OtwVc0ecQVtPbwqas2nu6I1MCLYQ5fr8=",
     "AUTH": "75a45430d8a7a75740f22e9438eea452ec9e73b233494d04d35240451f3d8ad7"
+  },
+  "ZENDESK": {
+    "JWT_TOKEN": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFwaUBrcnlwdG9uby5leGNoYW5nZSIsInBhc3N3b3JkIjoicmhXeVVQcHlwdHNDd1h3MktvIiwiaWF0IjoxNTMxMTA3Mjc1fQ.txx-jRp_MSOprS37h9g2mt91DEywd9qlsQM2sgElDjw",
+    "JWT_KEY": ""
   }
 } 

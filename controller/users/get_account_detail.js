@@ -29,6 +29,7 @@ module.exports = (req, res, next) => {
 
   request(options, (error, response, body) => {
     if (error) return res.responseError("GET_ACCOUNT_DETAIL_FAILED", err);
+    console.log(body);
     const account = {
       email: body.email,
       name: body.kyc_detail.first_name + body.kyc_detail.last_name,
@@ -36,8 +37,10 @@ module.exports = (req, res, next) => {
       account_status: body.account_status,
       kyc_status: body.kyc_status,
       withdrawal_status: body.withdrawal_status,
-      sms_status: false
+      sms_status: false,
+      kyc_detail: body.kyc_detail
     };
+
     if (body.phone) account.sms_status = true;
     res.responseSuccess({success: true, data: account});
   });
