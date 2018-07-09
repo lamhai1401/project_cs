@@ -9,7 +9,6 @@ module.exports = {
     {
       name      : 'API',
       script    : './index.test.js',
-      watch     : true,
       instances : '4',
       env: {
         COMMON_VARIABLE: 'true',
