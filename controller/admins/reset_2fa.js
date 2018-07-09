@@ -64,5 +64,44 @@ module.exports = (req, res, next) => {
     }
     return res.responseError("RESET_2FA_FAILED", err);
   });
-
 };
+
+// module.exports = (req, res, next) => {
+//   // create new intance
+//   const hash    = crypto.createHmac('sha256', secret);
+//   // mapping data from client
+//   const body      = {email: req.body.email};
+//   // recording support activities
+//   const object    = {
+//     ticket_id:      req.body.ticket_id,
+//     support_email:  req.user.email,
+//     activitiy:      "Reset 2FA"
+//   };
+//   // validate input from client
+//   const err = validate({email: body.email, ticket_id: object.ticket_id}, constraints);
+//   if (err) return res.responseError("RESET_2FA_FAILED", err);
+
+//   // get signature
+//   const signature = hash.update(JSON.stringify(body)).digest('hex');
+//   // setting request header
+//   const options = {
+//     method: 'POST',
+//     url: url,
+//     headers:
+//       {
+//         'X-Requested-With': 'XMLHttpRequest',
+//         'Signature': signature,
+//         'Content-Type': 'application/json',
+//         'Authorization': auth
+//       },
+//     body: body,
+//     json: true
+//   };
+//   // check valid ticket in both of zendesk and database
+//   request(options, (error, response, body) => {
+//     if (error) return res.responseError("RESET_2FA_FAILED", err);
+//     if(!body.success) return res.responseError("RESET_2FA_FAILED", 'This account is already disabled 2FA');
+//     activities.create(object);
+//     return res.responseSuccess({success: true, data: body});
+//   });
+// };
