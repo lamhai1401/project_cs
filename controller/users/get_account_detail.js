@@ -28,7 +28,8 @@ module.exports = (req, res, next) => {
   };
 
   request(options, (error, response, body) => {
-    if (error) return res.responseError("GET_ACCOUNT_DETAIL_FAILED", err);
+    if (error) return res.responseError("GET_ACCOUNT_DETAIL_FAILED", error);
+    if(body.error) return res.responseError("GET_ACCOUNT_DETAIL_FAILED", body);
     const account = {
       email: body.email,
       name: body.kyc_detail.first_name + body.kyc_detail.last_name,
