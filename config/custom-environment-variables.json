@@ -14,6 +14,6 @@
   },
   "ZENDESK": {
     "JWT_TOKEN": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFwaUBrcnlwdG9uby5leGNoYW5nZSIsInBhc3N3b3JkIjoicmhXeVVQcHlwdHNDd1h3MktvIiwiaWF0IjoxNTMxMTA3Mjc1fQ.txx-jRp_MSOprS37h9g2mt91DEywd9qlsQM2sgElDjw",
-    "JWT_KEY": ""
+    "JWT_KEY": "key"
   }
 }
