@@ -10,7 +10,7 @@ module.exports = {
       name      : 'API',
       script    : './index.test.js',
       watch     : true,
-      instances : '4',
+      instance_var : '4',
       env: {
         COMMON_VARIABLE: 'true',
         PORT: '3000',
