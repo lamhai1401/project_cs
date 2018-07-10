@@ -4,14 +4,13 @@ module.exports = {
    * http://pm2.keymetrics.io/docs/usage/application-declaration/
    */
   apps : [
-
     // First application
     {
       name      : 'API',
       script    : './index.test.js',
-      instances : '4',
+      instance_var: 'INSTANCE_ID',
       env: {
-        COMMON_VARIABLE: 'true',
+        NODE_ENV: 'sandbox',
         PORT: '3000',
       },
       env_sandbox : {
@@ -23,11 +22,5 @@ module.exports = {
         PORT: '3000',
       }
     },
-
-    // Second application
-    {
-      name      : 'WEB',
-      script    : 'web.js'
-    }
   ],
 };
