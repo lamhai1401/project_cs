@@ -8,6 +8,7 @@ module.exports = {
     {
       name      : 'API',
       script    : './index.test.js',
+      instances: 4,
       instance_var: 'INSTANCE_ID',
       env: {
         NODE_ENV: 'sandbox',
