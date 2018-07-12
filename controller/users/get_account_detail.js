@@ -15,9 +15,10 @@ const constraints = {
 
 module.exports = (req, res, next) => {
   // mapping data from client
-  const body      = {email: req.body.email};
+  const body      = {
+    email: req.body.email};
   // validate input from client
-  const err = validate({email: body.email, ticket_id: object.ticket_id}, constraints);
+  const err = validate({email: body.email}, constraints);
   if (err) return res.responseError("GET_ACCOUNT_DETAIL_FAILED", err);
   //verify token to get auth and secret key
   jwt.verifyTokenWithKey(kryptono_token, kryptono_key)
