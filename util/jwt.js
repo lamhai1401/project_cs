@@ -28,7 +28,7 @@ function verifyTokenWithKey(token, key) {
   });
 }
 
-function unLimitToken(payload, KEY1) {
+function unLimitTokenWithKey(payload, KEY1) {
   return new Promise((resolve, reject) => {
     jwt.sign(payload, KEY1, {algorithm: 'HS256'}, (err, token) => {
       if (err) return reject(err);
