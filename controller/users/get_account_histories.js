@@ -74,11 +74,9 @@ module.exports = (req, res, next) => {
       body: body,
       json: true
     };
-    console.log(body);
     return requets(options, (error, response, body) => {
       if (error) return res.responseError("GET_LAST_LOGIN_FAILED", error);
-      console.log(body);
-      if (!body[0])  return res.responseError("GET_LAST_LOGIN_FAILED", "This user dont have any login histories");
+      //if (!body[0])  return res.responseError("GET_LAST_LOGIN_FAILED", "This user dont have any login histories");
       return res.responseSuccess({success: true, data: body});
     });
   })
