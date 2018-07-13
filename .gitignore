@@ -3,3 +3,4 @@ note.txt
 package-lock.json
 .idea
 test.js
+config/development.json

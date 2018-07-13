@@ -1,8 +1,4 @@
-const requets       = require('request');
-const jwt           = require('../../util/jwt');
-const kryptono_token= require('config').KRYPTONO.KRYPTONO_TOKEN;
-const kryptono_key  = require('config').KRYPTONO.KRYPTONO_KEY;
-const crypto        = require('crypto');
+const requets       = require('../../util/request').makeKryptonoRequest;
 const validate      = require('validate.js');
 const url           = 'https://testenv1.kryptono.exchange/k/cs/login-history';
 
@@ -48,37 +44,25 @@ module.exports = (req, res, next) => {
     limit: (req.body.limit) || 10,
     from: (req.body.from) || Date.now() - 518400000,
     to: (req.body.to) || Date.now(),
-    action: req.body.action || "" // next-previous
+    action: req.body.action || "" // next-previous-undefine
   };
-  // validate input from client 1 531 377 557 346, 1 530 403 200 000
+  // validate input from client
   const err = validate(body, constraints);
   if (err) return res.responseError("GET_LAST_LOGIN_FAILED", err);
-  // verify token to get auth and secret key
-  jwt.verifyTokenWithKey(kryptono_token, kryptono_key)
-  .then(kryptono => {
-    // create new intance
-    const hash    = crypto.createHmac('sha256', kryptono.secret);
-    // get signature
-    const signature = hash.update(JSON.stringify(body)).digest('hex');
-    // setting request header
-    const options = {
-      method: 'POST',
-      url: url,
-      headers:
-        {
-          'X-Requested-With': 'XMLHttpRequest',
-          'Signature': signature,
-          'Content-Type': 'application/json',
-          'Authorization': kryptono.auth
-        },
-      body: body,
-      json: true
-    };
-    return requets(options, (error, response, body) => {
-      if (error) return res.responseError("GET_LAST_LOGIN_FAILED", error);
-      //if (!body[0])  return res.responseError("GET_LAST_LOGIN_FAILED", "This user dont have any login histories");
-      return res.responseSuccess({success: true, data: body});
-    });
+
+  // creata a new opt
+  const opt = {
+    url: url,
+    body: body,
+    method: "POST"
+  };
+
+  // send a request to kryptono
+  requets(opt)
+  .then(body => {
+    console.log(body);
+    //if (!body[0])  return res.responseError("GET_LAST_LOGIN_FAILED", "This user dont have any login histories");
+    return res.responseSuccess({success: true, data: body});
   })
   .catch(err => {
     if(err.message) {
