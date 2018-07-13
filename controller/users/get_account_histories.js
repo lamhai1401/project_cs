@@ -60,7 +60,6 @@ module.exports = (req, res, next) => {
   // send a request to kryptono
   requets(opt)
   .then(body => {
-    console.log(body);
     //if (!body[0])  return res.responseError("GET_LAST_LOGIN_FAILED", "This user dont have any login histories");
     return res.responseSuccess({success: true, data: body});
   })
