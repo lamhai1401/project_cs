@@ -5,16 +5,11 @@ const constraints = {
   email: {
     presence: true,
     email: true,
-  },
-  page: {
-    presence: true
-  },
-  limit: {
-    presence: true
   }
 };
 
 module.exports = (req, res, next) => {
+  
   //mapping date from request body
   const object = {
     email: req.body.email,
@@ -24,21 +19,21 @@ module.exports = (req, res, next) => {
 
   // validate input from client
   const err = validate(object, constraints);
-  if (err) return res.responseError("ACTIVITIES_HISTORY_LIST_FAILED", err);
+  if (err) return res.responseError("SUPPORT_ACTIVITIES_HISTORY_LIST_FAILED", err);
 
   // get data from mongo
-  activities.find({support_email: object.email})
+  activities.find({kryptono_email: object.email})
   .limit(object.limit)
   .skip(object.limit*object.page)
   .sort({"updated_at": -1})
   .then(list => {
-    if(!list[0]) return res.responseError("ACTIVITIES_HISTORY_LIST_FAILED", 'Invalid support email');
+    // if(!list[0]) return res.responseError("SUPPORT_ACTIVITIES_HISTORY_LIST_FAILED", 'Invalid kryptono email');
     return res.responseSuccess({success: true, data: {list: list, number_pages: parseInt(list.length / object.limit)}});
   })
   .catch(err => {
     if(err.message) {
-      return res.responseError("ACTIVITIES_HISTORY_LIST_FAILED", err.message);
+      return res.responseError("SUPPORT_ACTIVITIES_HISTORY_LIST_FAILED", err.message);
     }
-    return res.responseError("ACTIVITIES_HISTORY_LIST_FAILED", err);
+    return res.responseError("SUPPORT_ACTIVITIES_HISTORY_LIST_FAILED", err);
   });
 };

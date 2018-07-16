@@ -9,7 +9,6 @@ const reset_password_user = require('./reset_password_user_handler');
 const add_pers            = require('./add_pers_handler');
 const remove_pers         = require('./remove_pers_handler');
 const reset_2fa           = require('./reset_2fa');
-const activity_histories  = require('./get_activity_histories');
 
 module.exports = {
   list_user: list_user,
@@ -23,5 +22,4 @@ module.exports = {
   update: update_user,
   reset: reset_password_user,
   reset_2fa: reset_2fa,
-  activity_histories: activity_histories
 };

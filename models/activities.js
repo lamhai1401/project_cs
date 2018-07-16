@@ -4,6 +4,9 @@ const Acitivities_Schema = new mongoose.Schema({
   support_email: {
     type: String
   },
+  kryptono_email: {
+    type: String
+  },
   ticket_id: {
     type: String
   },

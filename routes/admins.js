@@ -12,9 +12,6 @@ router.patch("/users/password/reset", admin_controller.reset);
 // roles
 router.get("/roles", admin_controller.list_role);
 
-// activities
-router.post("/activities", admin_controller.activity_histories);
-
 // permissions
 router.get("/permissions", admin_controller.list_pers);
 router.patch("/permissions", admin_controller.add_pers);

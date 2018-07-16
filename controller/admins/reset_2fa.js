@@ -25,7 +25,8 @@ module.exports = (req, res, next) => {
   const object    = {
     ticket_id:      req.body.ticket_id,
     support_email:  req.user.email,
-    activitiy:      "Reset 2FA"
+    activitiy:      "Reset 2FA",
+    kryptono_email: body.email
   };
   // validate input from client
   const err = validate({email: body.email, ticket_id: object.ticket_id}, constraints);
