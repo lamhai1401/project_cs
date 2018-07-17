@@ -52,12 +52,12 @@ app.use((req, res, next) => {
 /**
  * Middleware
  */
+app.use(handler);
 app.use(timeout('10s'));
 app.use(haltOnTimedout);
 app.use(lusca.xframe('SAMEORIGIN'));
 app.use(lusca.xssProtection(true));
 app.use(errorhandler());
-app.use(handler);
 app.use(verify_token);
 app.use(dispatcher);
 
@@ -68,6 +68,7 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use(index_url, router);
 
 function haltOnTimedout (req, res, next) {
-    if (!req.timedout) next()
+    if (!req.timedout) return next();
+    return res.responseError("CONNECTION_TIMEOUT", "Press F5 to refresh it");
 }  
 module.exports = app;
