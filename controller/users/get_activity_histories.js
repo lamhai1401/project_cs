@@ -14,8 +14,8 @@ module.exports = (req, res, next) => {
   var object= {};
   if(req.body.kryptono_email) object.kryptono_email = req.body.kryptono_email;
   if(req.body.support_email) object.support_email = req.body.support_email;
-  limit = Math.abs(req.body.limit) || 10;
-  page  = (Math.abs(req.body.page) || 1) -1;
+  const limit = Math.abs(req.body.limit) || 10;
+  const page  = (Math.abs(req.body.page) || 1) -1;
 
   // validate input from client
   const err = validate(object, constraints);
