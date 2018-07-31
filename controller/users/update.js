@@ -3,7 +3,7 @@ const compare       = require('../../util/hash').compare;
 const userServices  = require('../../services/users');
 const jwt           = require('../../util/jwt');
 
-module.exports = (req, res, next) => {
+function change_password (req, res, next) {
   const object = {
     curr_password: req.body.curr_password,
     new_password: req.body.new_password
@@ -20,8 +20,8 @@ module.exports = (req, res, next) => {
     })
   })
   .then(hash_pass => {
-    jwt.createToken({email: email, password: object.new_password}).then(token => {
-      userServices.update_user(email, {password: hash_pass, updated_at: Date.now(), token: token}).then(user => {
+    return jwt.createToken({email: email, password: object.new_password}).then(token => {
+      return userServices.update_user(email, {password: hash_pass, updated_at: Date.now(), token: token}).then(user => {
         res.responseSuccess({success: true, data: user});
       });
     });
@@ -32,4 +32,8 @@ module.exports = (req, res, next) => {
     }
     return res.responseError("CHANGE_PASSWORD_FAILED", err);
   });
+};
+
+module.exports = {
+  change_password: change_password
 };

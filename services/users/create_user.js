@@ -15,7 +15,7 @@ module.exports = (object) => {
       }
       if(role.type == 'ADMIN') {
         return Promise.reject('You can not create new user with Admin type');
-      };
+      }
       return role;
     }).then(role => {
       return users_model.create(object).then((user) => {

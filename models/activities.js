@@ -13,6 +13,9 @@ const Acitivities_Schema = new mongoose.Schema({
   activitiy: {
     type: String
   },
+  description : {
+    type: String
+  },
   status: {
     type: String,
     default: 1

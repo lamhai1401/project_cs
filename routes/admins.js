@@ -17,8 +17,4 @@ router.get("/permissions", admin_controller.list_pers);
 router.patch("/permissions", admin_controller.add_pers);
 router.delete("/permissions", admin_controller.remove_pers);
 
-// reset 2fa
-router.post("/reset/2fa", admin_controller.reset_2fa);
-
-
 module.exports = router;

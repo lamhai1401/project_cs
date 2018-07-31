@@ -1,16 +1,18 @@
 const activities = require('../../models/activities');
 const validate   = require('validate.js');
 
-const constraints = {
-  kryptono_email: {
-    email: true,
-  },
-  support_email: {
-    email: true,
-  },
-};
-
-module.exports = (req, res, next) => {
+//* Get cs account activity histories
+function activity_histories (req, res, next) {
+  // validate request param
+  const constraints = {
+    kryptono_email: {
+      email: true,
+    },
+    support_email: {
+      email: true,
+    },
+  };
+  
   var object= {};
   if(req.body.kryptono_email) object.kryptono_email = req.body.kryptono_email;
   if(req.body.support_email) object.support_email = req.body.support_email;
@@ -36,4 +38,8 @@ module.exports = (req, res, next) => {
     }
     return res.responseError("SUPPORT_ACTIVITIES_HISTORY_LIST_FAILED", err);
   });
+}
+
+module.exports = {
+  activity_histories: activity_histories
 };
