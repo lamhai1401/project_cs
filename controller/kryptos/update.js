@@ -1,4 +1,4 @@
-const validate  = require('validate.js');
+const validate  = require('../../util/validate');
 const kryptos   = require('../../services/kryptos');
 
 // update kyc status

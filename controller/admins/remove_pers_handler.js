@@ -1,5 +1,5 @@
-const userServices = require('../../services/users');
-const validate    = require('validate.js');
+const userServices= require('../../services/users');
+const validate    = require('../../util/validate');
 const string      = require('../../util/string');
 
 const constraints = {

@@ -1,4 +1,4 @@
-const validate            = require('validate.js');
+const validate            = require('../../util/validate');
 const get_account_detail  = require('../../services/kryptos/get').account_detail;
 const get_login_histories = require('../../services/kryptos').get_login_histories;
 

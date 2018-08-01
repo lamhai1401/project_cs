@@ -1,5 +1,5 @@
 const activities = require('../../models/activities');
-const validate   = require('validate.js');
+const validate   = require('../../util/validate');
 
 //* Get cs account activity histories
 function activity_histories (req, res, next) {

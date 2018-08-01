@@ -3,7 +3,7 @@ const roleServices  = require('../../services/roles');
 const user_role     = require('../../models/user_role');
 const string        = require('../../util/string');
 const hash          = require('../../util/hash').hash;
-const validate      = require('validate.js');
+const validate      = require('../../util/validate');
 
 //* update user
 function update_user(req, res, next) {

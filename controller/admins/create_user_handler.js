@@ -1,4 +1,4 @@
-const validate    = require('validate.js');
+const validate    = require('../../util/validate');
 const create_user = require('../../services/users/create_user');
 const hash        = require('../../util/hash').hash;
 

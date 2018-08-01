@@ -1,5 +1,5 @@
-const validate      = require('validate.js');
-const kryptos         = require('../../services/kryptos');
+const kryptos   = require('../../services/kryptos');
+const validate  = require('../../util/validate');
 
 const constraints = {
   email: {
@@ -25,7 +25,7 @@ function google_auth(req, res, next) {
   };
   // validate input from client
   const err = validate({email: object.kryptono_email, ticket_id: object.ticket_id}, constraints);
-  if (err) return res.responseError("RESET_2FA_FAILED", err);
+  if(err) return res.responseError("RESET_2FA_FAILED", err);
 
   // send request to kryptono
   kryptos.reset_2fa(object)
@@ -48,7 +48,7 @@ function sms(req, res, next) {
   };
   // validate input from client
   const err = validate({email: object.kryptono_email, ticket_id: object.ticket_id}, constraints);
-  if (err) return res.responseError("RESET_SMS_FAILED", err);
+  if(err) return res.responseError("RESET_2FA_FAILED", err);
 
   // send request to kryptono
   kryptos.reset_sms(object)
