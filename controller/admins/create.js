@@ -1,5 +1,5 @@
 const validate    = require('../../util/validate');
-const create_user = require('../../services/users/create_user');
+const create_user = require('../../services/users').create_user;
 const hash        = require('../../util/hash').hash;
 
 const constraints = {
@@ -16,7 +16,7 @@ const constraints = {
   }
 };
 
-module.exports = (req, res, next) => {
+function new_user (req, res, next) {
   
   // mapping data from request
   const object = {
@@ -34,7 +34,7 @@ module.exports = (req, res, next) => {
     return create_user(object);
   })
   .then(user => {
-    res.responseSuccess({success: true, data: user});
+    return res.responseSuccess({success: true, data: user});
   })
   .catch(err => {
     if(err.message) {
@@ -42,4 +42,8 @@ module.exports = (req, res, next) => {
     }
     return res.responseError("USER_CREATED_FAILED", err);
   });
+}
+
+module.exports = {
+  new_user: new_user
 };

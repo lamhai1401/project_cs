@@ -3,7 +3,7 @@ const admin_controller  = require('../controller/admins');
 
 // users
 router.get("/users", admin_controller.list_user);
-router.post("/users", admin_controller.create);
+router.post("/users", admin_controller.create_user);
 router.patch("/users/block", admin_controller.block);
 router.patch("/users/unblock", admin_controller.unblock);
 router.patch("/users", admin_controller.update);

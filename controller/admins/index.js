@@ -1,8 +1,8 @@
-const get                 = require('./get');
-const update              = require('./update');
-const create_user         = require('./create_user_handler');
-const add_pers            = require('./add_pers_handler');
-const remove_pers         = require('./remove_pers_handler');
+const get           = require('./get');
+const update        = require('./update');
+const create        = require('./create');
+const add_pers      = require('./add_pers_handler');
+const remove_pers   = require('./remove_pers_handler');
 
 module.exports = {
   // get
@@ -17,5 +17,5 @@ module.exports = {
 
   add_pers    : add_pers,
   remove_pers : remove_pers,
-  create      : create_user,
+  create_user : create.new_user,
 };
