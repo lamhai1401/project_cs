@@ -26,5 +26,5 @@ module.exports = (req, res, next) => {
       return res.responseError("LOGIN_FAILED", err.message);
     }
     return res.responseError("LOGIN_FAILED", err);
-  })
+  });
 };

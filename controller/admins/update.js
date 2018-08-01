@@ -1,5 +1,6 @@
 const userServices  = require('../../services/users');
 const roleServices  = require('../../services/roles');
+const user_model    = require('../../models/users');
 const user_role     = require('../../models/user_role');
 const string        = require('../../util/string');
 const hash          = require('../../util/hash').hash;
@@ -101,10 +102,12 @@ function unblock_user(req, res, next) {
     email: req.body.email
   };
 
-  let err = validate(object, constraints);
+  const err = validate(object, constraints);
   if (err) return res.responseError("USER_UNBLOCK_FAILED", err);
-  userServices.get_user(object)
+
+  user_model.findOne(object)
   .then(user => {
+    if(!user) return res.responseError("USER_UNBLOCK_FAILED", 'Invalid email');
     userServices.update_user(user.email, { status: '1', updated_at: Date.now()}).then(user=> {
       res.responseSuccess({success: true, data: user});
     });
