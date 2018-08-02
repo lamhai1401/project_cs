@@ -2,6 +2,7 @@ const validate    = require('../../util/validate');
 const create_user = require('../../services/users').create_user;
 const hash        = require('../../util/hash').hash;
 
+//* Create new cs account
 function new_user (req, res, next) {
 
   const constraints = {
@@ -11,6 +12,9 @@ function new_user (req, res, next) {
     },
     password: {
       presence: true,
+      length: {
+        minimum: 6
+      }
     },
     role_type: {
       presence: true,

@@ -17,7 +17,7 @@ module.exports = (req, res, next) => {
   
   users.findOne({email: req.user.email}).then(user => {
     if(!user) return Promise.reject('Invalid email');
-    if(user.status == 0) return Promise.reject('This account was disabled');
+    if(user.status === '0') return Promise.reject('This account was disabled');
     return user;
   }).then(user => {
     return user_role.findOne({id_user: user._id}).then( user_role => {

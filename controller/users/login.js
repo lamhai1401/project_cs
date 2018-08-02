@@ -7,6 +7,9 @@ const constraints = {
   },
   password: {
     presence: true,
+    length: {
+      minimum: 6
+    }
   }
 };
 module.exports = (req, res, next) => {

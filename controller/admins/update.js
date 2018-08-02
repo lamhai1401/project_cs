@@ -130,6 +130,9 @@ function reset_password(req, res, next) {
     },
     password: {
       presence: true,
+      length: {
+        minimum: 6
+      }
     },
   };
   // mapping data from client
