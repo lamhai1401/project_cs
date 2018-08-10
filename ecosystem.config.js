@@ -11,11 +11,11 @@ module.exports = {
       instances: 4,
       instance_var: 'INSTANCE_ID',
       env: {
-        NODE_ENV: 'sandbox',
+        NODE_ENV: 'production',
         PORT: '3000',
       },
       env_sandbox : {
-        NODE_ENV: 'sandbox',
+        NODE_ENV: 'production',
         PORT: '3000',
       },
       env_production : {
