@@ -1,1 +1,19 @@
-{}
+{
+  "SERVER": {
+    "PORT": 3000
+  },
+  "MONGODB": {
+    "URI": "mongodb://csportal:mtpJ6dk25mYvABUf@104.199.129.242:57899/csportal"
+  },
+  "HOST": {
+    "INDEX": "/api/v1"
+  },
+  "ZENDESK": {
+    "JWT_TOKEN": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFwaUBrcnlwdG9uby5leGNoYW5nZSIsInBhc3N3b3JkIjoicmhXeVVQcHlwdHNDd1h3MktvIiwiaWF0IjoxNTMxMTA3Mjc1fQ.txx-jRp_MSOprS37h9g2mt91DEywd9qlsQM2sgElDjw",
+    "JWT_KEY": "key"
+  },
+  "KRYPTONO": {
+    "KRYPTONO_TOKEN": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjoiNzVhNDU0MzBkOGE3YTc1NzQwZjIyZTk0MzhlZWE0NTJlYzllNzNiMjMzNDk0ZDA0ZDM1MjQwNDUxZjNkOGFkNyIsInNlY3JldCI6IlIyNDRtMEZjczcyT3R3VmMwZWNRVnRQYndxYXMybnU2STFNQ0xZUTVmcjg9IiwiaWF0IjoxNTMxMjk3NDU1fQ.-cTkGfD7Yyo6Ry6kXR1bVJll8wF2aFPYjDZ8l-kw36s",
+    "KRYPTONO_KEY": "key" 
+  }
+}
