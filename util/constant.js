@@ -4,7 +4,7 @@ const KRYPTONO_URL = {
   "LOGIN"           : "https://kryptono.exchange/portal/j_spring_security_check",
   "LOGIN_HISTORIES" : "https://kryptono.exchange/k/cs/login-history",
   "ACCOUNT_DETAIL"  : "https://kryptono.exchange/k/cs/get-account-details",
-  "KYC_UPDATE"      : "https://testenv1.kryptono.exchange/portal/account/kyc/updatestatus"
+  "KYC_UPDATE"      : "https://kryptono.exchange/portal/account/kyc/updatestatus"
 };
 
 module.exports = {
