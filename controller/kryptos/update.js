@@ -13,11 +13,13 @@ function kyc_status(req, res, next) {
       format: /(approve|reject)/,
     }
   };
+  var arrReason = null;
+  if (req.body.reasons) arrReason = (req.body.reasons).split(", ");
   // get request body
   const object = {
     accountId: req.body.accountId || null,
     action: req.body.action,
-    reasons: [req.body.reasons] || null
+    reasons: arrReason
   };
   // validate data
   const err = validate(object, constraints);
