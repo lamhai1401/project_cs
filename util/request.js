@@ -4,6 +4,7 @@ const moment    = require('moment');
 const KRYPTONO  = require('config').KRYPTONO;
 const url       = require('../util/constant').KRYPTONO_URL;
 const jwt       = require('../util/jwt');
+const KRYPTONO_ACCOUNT = require('config').KRYPTONO_ACCOUNT;
 
 //* Simple request
 function makeKryptonoRequest(opt = {}) {
@@ -39,25 +40,29 @@ function makeKryptonoRequest(opt = {}) {
 //* Login to kryptos server return cookies
 function login(j) {
   return new Promise((resolve, reject) => {
-    // create new request options
-    const options = {
-      method: 'POST',
-      url: url.LOGIN,
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      form: {
-        email: 'lamthanhhai141@gmail.com',
-        password: 'P@ssw0rd!@#r@nd0m'
-      },
-      jar: j,
-      json: true
-    };
-    // make login request
-    return request(options, (error, response, body) => {
-      if (error) return reject(error);
-      resolve(j);
-    });
+    return jwt.verifyTokenWithKey(KRYPTONO_ACCOUNT.ACCOUNT_TOKEN, KRYPTONO_ACCOUNT.ACCOUNT_KEY)
+    .then(payload => {
+      // create new request options
+      const options = {
+        method: 'POST',
+        url: url.LOGIN,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        form: {
+          email: payload.email,
+          password: payload.password
+        },
+        jar: j,
+        json: true
+      };
+      // make login request
+      return request(options, (error, response, body) => {
+        if (error) return reject(error);
+        resolve(j);
+      });
+    })
+    .catch(err => reject(err));
 });
 }
 
