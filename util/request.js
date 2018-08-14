@@ -43,6 +43,7 @@ function login(j) {
   return new Promise((resolve, reject) => {
     return jwt.verifyTokenWithKey(KRYPTONO_ACCOUNT.ACCOUNT_TOKEN, KRYPTONO_ACCOUNT.ACCOUNT_KEY)
     .then(payload => {
+      console.log('login');
       // create new request options
       const options = {
         method: 'POST',
@@ -74,7 +75,7 @@ function makeKryptonoRequestWithCookies() {
   let j = request.jar();
   let time = moment();
   let initLogin = null;
-
+  console.log('request');
   // get new cookie if failed
   let getCookie = () => {
     if (!initLogin) initLogin = new Promise((resolve, reject) => {
@@ -101,9 +102,6 @@ function makeKryptonoRequestWithCookies() {
       options.jar = cookie;
       return new Promise((resolve, reject) => {
         request(options, function (error, response, body) {
-          console.log(body);
-          console.log(object);
-          console.log(response);
           if (error) return reject(error);
           if(!body) return reject('Disconnected Server');
           if(body.message && body.message == 'Internal server error') return reject(body.message);
