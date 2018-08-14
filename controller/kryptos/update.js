@@ -27,7 +27,7 @@ function kyc_status(req, res, next) {
   // send request to kryptos server
   kryptos.update_kyc_status(object)
   .then(body => {
-    return res.responseSuccess({success: true, data: body.message});
+    return res.responseSuccess({success: true, data: body});
   })
   .catch(err => {
     if(err.message) {
