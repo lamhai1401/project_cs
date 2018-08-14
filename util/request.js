@@ -75,7 +75,7 @@ function makeKryptonoRequestWithCookies() {
   let j = request.jar();
   let time = moment();
   let initLogin = null;
-  console.log('request');
+
   // get new cookie if failed
   let getCookie = () => {
     if (!initLogin) initLogin = new Promise((resolve, reject) => {
@@ -98,6 +98,7 @@ function makeKryptonoRequestWithCookies() {
   return function makeRequest(opt = {}) {
     return getCookie()
     .then(cookie => {
+      console.log("Request");
       let options = Object.assign({}, opt);
       options.jar = cookie;
       return new Promise((resolve, reject) => {
