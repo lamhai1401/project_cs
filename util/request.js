@@ -59,6 +59,7 @@ function login(j) {
       };
       // make login request
       return request(options, (error, response, body) => {
+        console.log(body);
         if (error) return reject(error);
         resolve(j);
       });
@@ -101,6 +102,8 @@ function makeKryptonoRequestWithCookies() {
       return new Promise((resolve, reject) => {
         request(options, function (error, response, body) {
           console.log(body);
+          console.log(object);
+          console.log(response);
           if (error) return reject(error);
           if(!body) return reject('Disconnected Server');
           if(body.message && body.message == 'Internal server error') return reject(body.message);
