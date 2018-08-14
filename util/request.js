@@ -28,10 +28,11 @@ function makeKryptonoRequest(opt = {}) {
   .then(options => {
     return new Promise((resolve, reject) => {
       request(options, (error, response, body) => {
+        console.log(body);
+        console.log(error);
         if (error) return reject(error);
         if(!body) return reject('Disconnected Server');
         if(body.message && body.message === 'Internal server error') return reject(body.message);
-        console.log(body);
         // TODO check more data
         resolve(body);
       });
@@ -130,3 +131,9 @@ module.exports = {
 //     console.log('i', i);
 //   })
 // }
+
+
+// form: {
+//   email: payload.email,
+//   password: payload.password
+// },
