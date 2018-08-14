@@ -28,13 +28,13 @@ function kyc_status(req, res, next) {
   return kryptos.update_kyc_status(object)
   .then(body => {
     console.log(body);
-    return res.responseSuccess({success: true, data: body.message});
+    return res.responseSuccess({success: true, data: body});
   })
   .catch(err => {
     console.log(err);
-    if(err.message) {
-      return res.responseError("KYC_STATUS_UPDATE_FAILED", err.message);
-    }
+    // if(err.message) {
+    //   return res.responseError("KYC_STATUS_UPDATE_FAILED", err.message);
+    // }
     return res.responseError("KYC_STATUS_UPDATE_FAILED", err);
   });
 }
