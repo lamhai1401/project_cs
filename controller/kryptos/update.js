@@ -25,8 +25,9 @@ function kyc_status(req, res, next) {
   const err = validate(object, constraints);
   if (err) return res.responseError("KYC_STATUS_UPDATE_FAILED", err);
   // send request to kryptos server
-  kryptos.update_kyc_status(object)
+  return kryptos.update_kyc_status(object)
   .then(body => {
+    console.log(body);
     return res.responseSuccess({success: true, data: body.message});
   })
   .catch(err => {
