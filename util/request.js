@@ -28,11 +28,9 @@ function makeKryptonoRequest(opt = {}) {
   .then(options => {
     return new Promise((resolve, reject) => {
       request(options, (error, response, body) => {
-        console.log(body);
-        console.log(error);
         if (error) return reject(error);
         if(!body) return reject('Disconnected Server');
-        if(body.message && body.message === 'Internal server error') return reject(body.message);
+        //if(body.message && body.message == 'Internal server error') return reject(body.message);
         // TODO check more data
         resolve(body);
       });
@@ -104,6 +102,8 @@ function makeKryptonoRequestWithCookies() {
         request(options, function (error, response, body) {
           console.log(body);
           if (error) return reject(error);
+          if(!body) return reject('Disconnected Server');
+          if(body.message && body.message == 'Internal server error') return reject(body.message);
           resolve(body);
         });
       });
