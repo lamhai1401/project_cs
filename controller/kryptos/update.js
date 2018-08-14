@@ -30,7 +30,6 @@ function kyc_status(req, res, next) {
     return res.responseSuccess({success: true, data: body.message});
   })
   .catch(err => {
-    console.log(err);
     if(err.message) {
       return res.responseError("KYC_STATUS_UPDATE_FAILED", "err.message: " + err);
     }

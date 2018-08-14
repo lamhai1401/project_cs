@@ -43,7 +43,6 @@ function login(j) {
   return new Promise((resolve, reject) => {
     return jwt.verifyTokenWithKey(KRYPTONO_ACCOUNT.ACCOUNT_TOKEN, KRYPTONO_ACCOUNT.ACCOUNT_KEY)
     .then(payload => {
-      console.log('login');
       // create new request options
       const options = {
         method: 'POST',
@@ -60,7 +59,6 @@ function login(j) {
       };
       // make login request
       return request(options, (error, response, body) => {
-        console.log(body);
         if (error) return reject(error);
         resolve(j);
       });
@@ -98,7 +96,6 @@ function makeKryptonoRequestWithCookies() {
   return function makeRequest(opt = {}) {
     return getCookie()
     .then(cookie => {
-      console.log("Request");
       let options = Object.assign({}, opt);
       options.jar = cookie;
       return new Promise((resolve, reject) => {

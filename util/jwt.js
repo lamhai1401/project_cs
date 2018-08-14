@@ -43,10 +43,5 @@ module.exports = {
   verifyTokenWithKey: verifyTokenWithKey
 };
 
-const payload = {
-  email: "support@kryptono.exchange",
-  password: "admin"
-};
-
-// verifyTokenWithKey("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN1cHBvcnRAa3J5cHRvbm8uZXhjaGFuZ2UiLCJwYXNzd29yZCI6ImFkbWluIiwiaWF0IjoxNTM0MTU4ODU5fQ.3nuJz8NeyxMHvD2Wj8wJWPqqZOnQf8y97qK49oPQAec", "14011994aA**..")
-// .then(token => console.log(token));
+// const payload = {
+// };
