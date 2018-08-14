@@ -30,6 +30,8 @@ function makeKryptonoRequest(opt = {}) {
       request(options, (error, response, body) => {
         if (error) return reject(error);
         if(!body) return reject('Disconnected Server');
+        if(body.message && body.message === 'Internal server error') return reject(body.message);
+        console.log(body);
         // TODO check more data
         resolve(body);
       });
