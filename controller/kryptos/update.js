@@ -27,15 +27,14 @@ function kyc_status(req, res, next) {
   // send request to kryptos server
   return kryptos.update_kyc_status(object)
   .then(body => {
-    console.log(body);
-    return res.responseSuccess({success: true, data: body});
+    return res.responseSuccess({success: true, data: body.message});
   })
   .catch(err => {
     console.log(err);
-    // if(err.message) {
-    //   return res.responseError("KYC_STATUS_UPDATE_FAILED", err.message);
-    // }
-    return res.responseError("KYC_STATUS_UPDATE_FAILED", err);
+    if(err.message) {
+      return res.responseError("KYC_STATUS_UPDATE_FAILED", "err.message: " + err);
+    }
+    return res.responseError("KYC_STATUS_UPDATE_FAILED",  "err: " + err);
   });
 }
 
