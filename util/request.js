@@ -102,6 +102,7 @@ function makeKryptonoRequestWithCookies() {
       options.jar = cookie;
       return new Promise((resolve, reject) => {
         request(options, function (error, response, body) {
+          console.log(body);
           if (error) return reject(error);
           resolve(body);
         });
