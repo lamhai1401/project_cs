@@ -1,10 +1,7 @@
 const crypto    = require('crypto');
 const request   = require('request');
-const moment    = require('moment');
 const KRYPTONO  = require('config').KRYPTONO;
-const url       = require('../util/constant').KRYPTONO_URL;
 const jwt       = require('../util/jwt');
-const KRYPTONO_ACCOUNT = require('config').KRYPTONO_ACCOUNT;
 
 //* Simple request
 function makeKryptonoRequest(opt = {}) {
@@ -30,7 +27,6 @@ function makeKryptonoRequest(opt = {}) {
       request(options, (error, response, body) => {
         if (error) return reject(error);
         if(!body) return reject('Disconnected Server');
-        //if(body.message && body.message == 'Internal server error') return reject(body.message);
         // TODO check more data
         resolve(body);
       });
@@ -39,80 +35,81 @@ function makeKryptonoRequest(opt = {}) {
 }
 
 //* Login to kryptos server return cookies
-function login(j) {
-  return new Promise((resolve, reject) => {
-    return jwt.verifyTokenWithKey(KRYPTONO_ACCOUNT.ACCOUNT_TOKEN, KRYPTONO_ACCOUNT.ACCOUNT_KEY)
-    .then(payload => {
-      // create new request options
-      const options = {
-        method: 'POST',
-        url: url.LOGIN,
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        form: {
-          email: payload.email,
-          password: payload.password
-        },
-        jar: j,
-        json: true
-      };
-      // make login request
-      return request(options, (error, response, body) => {
-        if (error) return reject(error);
-        resolve(j);
-      });
-    })
-    .catch(err => reject(err));
-});
-}
+// function login(j) {
+//   return new Promise((resolve, reject) => {
+//     return jwt.verifyTokenWithKey(KRYPTONO_ACCOUNT.ACCOUNT_TOKEN, KRYPTONO_ACCOUNT.ACCOUNT_KEY)
+//     .then(payload => {
+//       // create new request options
+//       const options = {
+//         method: 'POST',
+//         url: url.LOGIN,
+//         headers: {
+//           'Content-Type': 'application/x-www-form-urlencoded'
+//         },
+//         form: {
+//           email: payload.email,
+//           password: payload.password
+//         },
+//         jar: j,
+//         json: true
+//       };
+//       // make login request
+//       return request(options, (error, response, body) => {
+//         if (error) return reject(error);
+//         resolve(j);
+//       });
+//     })
+//     .catch(err => reject(err));
+// });
+// }
 
 //* Request with cookies
-function makeKryptonoRequestWithCookies() {
-  // create cookies agrument
-  let j = request.jar();
-  let time = moment();
-  let initLogin = null;
+// function makeKryptonoRequestWithCookies() {
+//   // create cookies agrument
+//   let j = request.jar();
+//   let time = moment();
+//   let initLogin = null;
 
-  // get new cookie if failed
-  let getCookie = () => {
-    if (!initLogin) initLogin = new Promise((resolve, reject) => {
-      login(j).then(cookie => {
-        getCookie = getCookie2;
-        resolve(cookie);
-      }).catch(err => reject(err));
-    });
-    return initLogin;
-  };
-  function getCookie2() {
-    if (time.diff(moment(), 'minutes') >= 15) {
-      return login(j).then(cookie => {
-        return j;
-      }).catch(err => Promise.reject(err));
-    }
-    return Promise.resolve(j);
-  }
-  // return function
-  return function makeRequest(opt = {}) {
-    return getCookie()
-    .then(cookie => {
-      let options = Object.assign({}, opt);
-      options.jar = cookie;
-      return new Promise((resolve, reject) => {
-        request(options, function (error, response, body) {
-          if (error) return reject(error);
-          if(!body) return reject('Disconnected Server');
-          if(body.message && body.message == 'Internal server error') return reject(body.message);
-          resolve(body);
-        });
-      });
-    });
-  };
-}
+//   // get new cookie if failed
+//   let getCookie = () => {
+//     if (!initLogin) initLogin = new Promise((resolve, reject) => {
+//       login(j).then(cookie => {
+//         getCookie = getCookie2;
+//         resolve(cookie);
+//       }).catch(err => reject(err));
+//     });
+//     return initLogin;
+//   };
+//   function getCookie2() {
+//     if (time.diff(moment(), 'minutes') >= 15) {
+//       return login(j).then(cookie => {
+//         return j;
+//       }).catch(err => Promise.reject(err));
+//     }
+//     return Promise.resolve(j);
+//   }
+//   // return function
+//   return function makeRequest(opt = {}) {
+//     return getCookie()
+//     .then(cookie => {
+//       let options = Object.assign({}, opt);
+//       options.jar = cookie;
+//       console.log(cookie);
+//       return new Promise((resolve, reject) => {
+//         request(options, function (error, response, body) {
+//           if (error) return reject(error);
+//           if(!body) return reject('Disconnected Server');
+//           if(body.message && body.message == 'Internal server error') return reject(body.message);
+//           resolve(body);
+//         });
+//       });
+//     });
+//   };
+// }
 
 module.exports = {
   makeKryptonoRequest: makeKryptonoRequest,
-  makeKryptonoRequestWithCookies: makeKryptonoRequestWithCookies(),
+  // makeKryptonoRequestWithCookies: makeKryptonoRequestWithCookies(),
 };
 
 // let myOptions = {

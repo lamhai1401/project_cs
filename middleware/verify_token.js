@@ -6,8 +6,9 @@ module.exports = (req, res, next) => {
   const isLogin = url.search("login");
   if(isLogin != -1) return next();
   
-  // check token
-  const token = req.body.token || req.query.token || req.headers['x-access-token'] || req.headers['authorization'];
+  // check token req.body.token || 
+  const token = req.query.token || req.headers['x-access-token'] || req.headers['authorization'];
+  
   if (!token) {
     return res.responseFailAuth("UNAUTHORIZED_ERROR", "Need to Login");
   };
