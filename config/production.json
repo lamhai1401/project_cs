@@ -1,6 +1,6 @@
 {
   "SERVER": {
-    "PORT": 3000
+    "PORT": 80
   },
   "MONGODB": {
     "URI": "mongodb://csportal:mtpJ6dk25mYvABUf@127.0.0.1:57899/csportal"
@@ -15,9 +15,5 @@
   "KRYPTONO": {
     "KRYPTONO_TOKEN": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjoiNzVhNDU0MzBkOGE3YTc1NzQwZjIyZTk0MzhlZWE0NTJlYzllNzNiMjMzNDk0ZDA0ZDM1MjQwNDUxZjNkOGFkNyIsInNlY3JldCI6IlIyNDRtMEZjczcyT3R3VmMwZWNRVnRQYndxYXMybnU2STFNQ0xZUTVmcjg9IiwiaWF0IjoxNTMxMjk3NDU1fQ.-cTkGfD7Yyo6Ry6kXR1bVJll8wF2aFPYjDZ8l-kw36s",
     "KRYPTONO_KEY": "key" 
-  },
-  "KRYPTONO_ACCOUNT": {
-    "ACCOUNT_TOKEN": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRvcXVvY3BodW9uZ0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IjEyMzQ1NiIsImlhdCI6MTUzNDIzNzEzMX0.zQ9xk1_gJYlI_EYzb1mUhbPGr3h23d6FQEb5HnyMhgI",
-    "ACCOUNT_KEY": "key"
   }
 }

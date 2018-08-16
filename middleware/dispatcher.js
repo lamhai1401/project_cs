@@ -14,8 +14,11 @@ module.exports = (req, res, next) => {
 
   // pass if user call login method
   if( path === 'login') return next();
+
+  if(!originalUrl.startsWith('/v1/api/')) return next();
   
   users.findOne({email: req.user.email}).then(user => {
+
     if(!user) return Promise.reject('Invalid email');
     if(user.status === '0') return Promise.reject('This account was disabled');
     return user;

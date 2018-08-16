@@ -21,6 +21,13 @@ const dispatcher    = require('./middleware/dispatcher');
  */
 const app = express();
 
+/**
+ * Static server libraries
+ */
+const compression = require('compression');
+const mime = require('mime-types');
+const fallback = require('connect-history-api-fallback');
+
 app.use(cors());
 app.use(body.json());
 app.use(body.urlencoded({extended: true}));
@@ -49,6 +56,23 @@ app.use((req, res, next) => {
     next();
 });
 
+/* Static resources */
+// app.use('/public', express.static(path.join(__dirname, 'public')));
+app.use(fallback({
+    htmlAcceptHeaders: ['text/html', 'application/xhtml+xml']
+}))
+
+// serve static files
+app.use(express.static(__dirname + '/build', {
+    maxAge: "1y",
+    setHeaders: function (res, path) {
+        if (mime.lookup(path) === 'text/html') {
+            res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0');
+            res.setHeader('Pragma', 'no-cache');
+        }
+    },
+}));
+
 /**
  * Middleware
  */
@@ -58,11 +82,11 @@ app.use(haltOnTimedout);
 app.use(lusca.xframe('SAMEORIGIN'));
 app.use(lusca.xssProtection(true));
 app.use(errorhandler());
+app.use(compression());
 app.use(verify_token);
 app.use(dispatcher);
 
-/* Static resources */
-app.use('/public', express.static(path.join(__dirname, 'public')));
+
 
 // app router connection
 app.use(index_url, router);
@@ -70,5 +94,6 @@ app.use(index_url, router);
 function haltOnTimedout (req, res, next) {
     if (!req.timedout) return next();
     return res.responseError("CONNECTION_TIMEOUT", "Press F5 to refresh it");
-}  
+}
+
 module.exports = app;

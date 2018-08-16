@@ -19,7 +19,6 @@ app.set('port', port);
 /**
  * Create HTTP server.
  */
-
 const server = http.createServer(app);
 
 /**
@@ -103,6 +102,5 @@ function onListening() {
     debug('Listening on ' + bind);
     console.log(chalk`
     [Express] App is running at : {yellow ${app.get("port")}} in {yellow ${app.get("env")}} mode
-    [Express] Press {red CTRL-C} to stop
-`);
+    [Express] Press {red CTRL-C} to stop`);
 }
