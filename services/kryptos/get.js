@@ -21,7 +21,7 @@ function account_detail(object) {
         google_auth_status: body.enable_google_2fa,
         account_status: body.account_status,
         kyc_status: body.kyc_status || null,
-        kyc_detail: body.account_kyc || null,
+        kyc_detail: body.kyc_detail || null,
         withdrawal_status: body.withdrawal_status,
         sms_status: false,
       };
