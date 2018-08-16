@@ -11,4 +11,3 @@ const KRYPTONO_URL = {
 module.exports = {
   KRYPTONO_URL: KRYPTONO_URL
 };
-
