@@ -12,15 +12,15 @@ module.exports = {
       instance_var: 'INSTANCE_ID',
       env: {
         NODE_ENV: 'production',
-        PORT: '3000',
+        PORT: '80',
       },
       env_sandbox : {
         NODE_ENV: 'production',
-        PORT: '3000',
+        PORT: '80',
       },
       env_production : {
         NODE_ENV: 'production',
-        PORT: '3000',
+        PORT: '80',
       }
     },
   ],
