@@ -13,7 +13,7 @@ const chalk = require('chalk');
 /**
  * Get port from environment and store in Express.
  */
-const port = normalizePort(config.SERVER.PORT || '3000');
+const port = normalizePort(config.SERVER.PORT || '80');
 app.set('port', port);
 
 /**
