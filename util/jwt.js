@@ -3,7 +3,7 @@ const KEY = 'q225234454>>*(&*^&%^*%@!651d.0g654gd8fh/97t83AGDHGNNGF4t53er1df.b0f
 
 function createToken(payload) {
   return new Promise((resolve, reject) => {
-    jwt.sign(payload, KEY, {algorithm: 'HS256', expiresIn: '2 hours'}, (err, token) => {
+    jwt.sign(payload, KEY, {algorithm: 'HS256', expiresIn: '24h'}, (err, token) => {
       if (err) return reject(err);
       resolve(token);
     });
@@ -42,6 +42,3 @@ module.exports = {
   verifyToken: verifyToken,
   verifyTokenWithKey: verifyTokenWithKey
 };
-
-// const payload = {
-// };

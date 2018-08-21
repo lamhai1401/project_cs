@@ -13,7 +13,7 @@ module.exports = (req, res, next) => {
     return res.responseFailAuth("UNAUTHORIZED_ERROR", "Need to Login");
   };
   // check expired token 
-  jwt.verifyToken(token)
+  return jwt.verifyToken(token)
   .then(info => {
     if(info == 'jwt expired') {
       return res.responseFailAuth("UNAUTHORIZED_ERROR", "Login again");
