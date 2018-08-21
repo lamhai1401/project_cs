@@ -14,10 +14,6 @@ function kyc_status(req, res, next) {
     action: {
       presence: true,
       format: /(approve|reject)/
-    },
-    kyc_status: {
-      presence: true,
-      format: /(pending)/
     }
   };
 
@@ -35,8 +31,8 @@ function kyc_status(req, res, next) {
   const kyc_url = req.body.action == 'approve' ? url.KYC_UPDATE_APPROVE : url.KYC_UPDATE_REJECT;
 
   // validate data
-  const err     = validate({token: object.token, action: req.body.action, kyc_status: req.body.kyc_status}, constraints);
-  if (err) return res.responseError("KYC_STATUS_UPDATE_FAILED", "Validate: " + err);
+  const err     = validate({token: object.token, action: req.body.action}, constraints);
+  if (err) return res.responseError("KYC_STATUS_UPDATE_FAILED", "Validate failed: " + err);
   
   // send request to kryptos server
   return kryptos.update_kyc_status(object, kyc_url)
