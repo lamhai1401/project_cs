@@ -14,8 +14,9 @@ function account_detail(object) {
     return request(opt)
     .then(body => {
       if(body.error) return reject(body.error_description);
+      console.log(body);
       const account = {
-        //account_id: body.account_id || null,
+        account_id: body.account_id || null,
         email: body.email || "",
         name: "",
         google_auth_status: body.enable_google_2fa,

@@ -3,7 +3,7 @@
     "PORT": 80
   },
   "MONGODB": {
-    "URI": "mongodb://csportal:mtpJ6dk25mYvABUf@127.0.0.1:12/csportal"
+    "URI": "mongodb://csportal:mtpJ6dk25mYvABUf@127.0.0.1:57899/csportal"
   },
   "HOST": {
     "INDEX": "/api/v1"

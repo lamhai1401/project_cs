@@ -9,7 +9,7 @@ function kyc_status(object, url) {
       body: object
     };
 
-    // send request to kryto server
+    // send request kyc status to kryto server
     return request(opt)
     .then(body => {
       if(body.error) return reject("Response body error:  " + body.error_description);
@@ -19,27 +19,40 @@ function kyc_status(object, url) {
   });
 }
 
+//* Update kyc detail
+function kyc_detail(object, url) {
+  return new Promise((resolve, reject) => {
+    const opt = {
+      method: 'POST',
+      url: url,
+      body: object
+    };
 
-// function kyc_status(object) {
-//   // make a request to krypto server
-//   return new Promise((resolve, reject) => {
-//     // make a options
-//     const options = {
-//       method: 'POST',
-//       header : {
-//         'Content-Type': 'application/json',
-//         'X-Requested-With': 'XMLHttpRequest'
-//       },
-//       url: url.KYC_UPDATE,
-//       body: object,
-//       json: true
-//     };
-//     return request(options)
-//     .then(body => resolve(body))
-//     .catch(err => reject(err));
-//   });
-// }
+    //send request kyc detail to krypto server
+    return request(opt)
+    .then(body => resolve(body))
+    .catch(err => reject(err));
+  });
+}
 
+//* Update withdraw status
+function withdraw_status(object, url) {
+  return new Promise((resolve, reject) => {
+    const opt = {
+      method: 'POST',
+      url: url,
+      body: object
+    };
+
+    return request(opt)
+    .then(body => {
+      return resolve(body);
+    })
+    .catch(err => reject(err));
+  });
+}
 module.exports = {
-  kyc_status: kyc_status
+  kyc_status: kyc_status,
+  kyc_detail: kyc_detail,
+  withdraw_status: withdraw_status
 };
